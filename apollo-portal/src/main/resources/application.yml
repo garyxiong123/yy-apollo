@@ -1,0 +1,24 @@
+spring:
+  application:
+    name: apollo-portal
+  profiles:
+    active: ${apollo_profile}
+  datasource:
+    url : jdbc:mysql://127.0.0.1:3306/ApolloPortalDb
+    username : root
+    password : root
+    driver-class-name : com.mysql.jdbc.Driver
+server:
+  port: 8080
+  compression:
+    enabled: true
+  
+logging:
+  file: /opt/logs/100003173/apollo-portal.log
+
+management:
+  health:
+    status:
+      order: DOWN, OUT_OF_SERVICE, UNKNOWN, UP 
+
+

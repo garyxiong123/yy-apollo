@@ -134,7 +134,7 @@ public class ItemController {
 
     return findItems(appId, env, branchName, namespaceName, "lastModifiedTime");
   }
-
+    //比较各个项目值的差异
   @RequestMapping(value = "/namespaces/{namespaceName}/diff", method = RequestMethod.POST, consumes = {
       "application/json"})
   public List<ItemDiffs> diff(@RequestBody NamespaceSyncModel model) {

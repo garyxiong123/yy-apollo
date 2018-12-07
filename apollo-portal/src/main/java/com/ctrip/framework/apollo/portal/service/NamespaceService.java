@@ -34,6 +34,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
+import org.springframework.util.ObjectUtils;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -227,7 +228,7 @@ public class NamespaceService {
      * load cluster all namespace info with items
      */
     public List<NamespaceBO> findNamespaceBOs(String appId, Env env, String clusterName) {
-        List<Namespace> namespaceEntities = namespaceRepository.findByAppIdAndClusterNameOrderByIdAsc(appId, clusterName);
+            List<Namespace> namespaceEntities = namespaceRepository.findByAppIdAndClusterNameOrderByIdAsc(appId, clusterName);
         if (namespaceEntities == null || namespaceEntities.size() == 0) {
             throw new BadRequestException("namespaces not exist");
         }
@@ -545,21 +546,23 @@ public class NamespaceService {
 
     }
 
-    public Namespace findParentNamespace(String appId, String clusterName, String namespaceName) {
-        return findParentNamespace(new Namespace(appId, clusterName, namespaceName));
-    }
+//    public Namespace findParentNamespace(String appId, String clusterName, String namespaceName) {
+//        return findParentNamespace(new Namespace(appId, clusterName, namespaceName));
+//    }
 
-    public Namespace findParentNamespace(Namespace namespace) {
+    public Namespace findParentNamespace(Namespace namespace, String env) {
         String appId = namespace.getAppId();
         String namespaceName = namespace.getNamespaceName();
 
-        ClusterEntity clusterEntity = clusterService.findOne(appId, namespace.getClusterName());
-        if (clusterEntity != null && clusterEntity.getParentClusterId() > 0) {
-            ClusterEntity parentClusterEntity = clusterService.findOne(clusterEntity.getParentClusterId());
-            return findOne(appId, parentClusterEntity.getName(), namespaceName);
+        ClusterEntity clusterEntity = clusterService.findOne(appId, namespace.getClusterName(), env);
+        if (clusterEntity == null || clusterEntity.getParentClusterId() == 0) {
+            return null;
+
         }
 
-        return null;
+        ClusterEntity parentClusterEntity = clusterService.findOne(clusterEntity.getParentClusterId());
+        return findOne(appId, parentClusterEntity.getName(), namespaceName);
+
     }
 
     public boolean isChildNamespace(String appId, String clusterName, String namespaceName) {
@@ -567,14 +570,15 @@ public class NamespaceService {
     }
 
     public boolean isChildNamespace(Namespace namespace) {
-        return findParentNamespace(namespace) != null;
+        //TODO fix
+        return findParentNamespace(namespace, null) != null;
     }
 
     public boolean isNamespaceUnique(String appId, String cluster, String namespace) {
         Objects.requireNonNull(appId, "AppId must not be null");
         Objects.requireNonNull(cluster, "ClusterEntity must not be null");
         Objects.requireNonNull(namespace, "Namespace must not be null");
-        return Objects.isNull(
+        return ObjectUtils.isEmpty(
                 namespaceRepository.findByAppIdAndClusterNameAndNamespaceName(appId, cluster, namespace));
     }
 

@@ -20,8 +20,8 @@ public class ClusterEntity extends BaseEntity implements Comparable<ClusterEntit
   @Column(name = "Name", nullable = false)
   private String name;
 
-//    @Column(name = "Env", nullable = false)
-//  private String env;
+  @Column(name = "Env", nullable = false)
+  private String env;
 
 
   @Column(name = "AppId", nullable = false)
@@ -59,13 +59,13 @@ public class ClusterEntity extends BaseEntity implements Comparable<ClusterEntit
         .add("parentClusterId", parentClusterId).toString();
   }
 
-//  public String getEnv() {
-//    return env;
-//  }
-//
-//  public void setEnv(String env) {
-//    this.env = env;
-//  }
+  public String getEnv() {
+    return env;
+  }
+
+  public void setEnv(String env) {
+    this.env = env;
+  }
 
   @Override
   public int compareTo(ClusterEntity o) {

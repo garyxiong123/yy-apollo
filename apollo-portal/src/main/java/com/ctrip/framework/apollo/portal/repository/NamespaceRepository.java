@@ -20,6 +20,8 @@ public interface NamespaceRepository extends PagingAndSortingRepository<Namespac
 
   List<Namespace> findByAppIdAndNamespaceNameOrderByIdAsc(String appId, String namespaceName);
 
+
+
   List<Namespace> findByNamespaceName(String namespaceName, Pageable page);
 
   int countByNamespaceNameAndAppIdNot(String namespaceName, String appId);

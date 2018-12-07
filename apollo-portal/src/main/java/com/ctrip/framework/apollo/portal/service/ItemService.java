@@ -61,6 +61,8 @@ public class ItemService {
 
     @Autowired
     private CommitService commitService;
+    @Autowired
+    private ItemSetService itemSetService;
 
     private static final Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
 
@@ -258,9 +260,9 @@ public class ItemService {
             Env env = namespaceIdentifier.getEnv();
             String clusterName = namespaceIdentifier.getClusterName();
             String namespaceName = namespaceIdentifier.getNamespaceName();
-
+            //保存多个环境的更改到多个Item表里
 //            itemAPI.updateItemsByChangeSet(appId, env, clusterName, namespaceName, changeSets);
-
+            itemSetService.updateSet(appId, clusterName, namespaceName, changeSets, env.name());
             Tracer.logEvent(TracerEventType.SYNC_NAMESPACE, String.format("%s+%s+%s+%s", appId, env, clusterName, namespaceName));
         }
     }
@@ -295,7 +297,7 @@ public class ItemService {
 
     private ItemChangeSets parseChangeSets(NamespaceIdentifier namespace, List<Item> sourceItems) {
         ItemChangeSets changeSets = new ItemChangeSets();
-        Long namespaceId = namespaceService.findOne(namespace.getAppId(), namespace.getClusterName(), namespace.getClusterName()).getId();
+        Long namespaceId = namespaceService.findOne(namespace.getAppId(), namespace.getClusterName(), namespace.getNamespaceName()).getId();
         List<Item> targetItems = itemRepository.findByNamespaceIdAndEnv(namespaceId, namespace.getEnv().name());
 
 //        long namespaceId = getNamespaceId(namespace);

@@ -35,6 +35,17 @@ public class GrayReleaseRule extends BaseEntity {
   @Column(name = "BranchStatus", nullable = false)
   private int branchStatus;
 
+  @Column(name = "Env", nullable = false)
+  private String env;
+
+  public String getEnv() {
+    return env;
+  }
+
+  public void setEnv(String env) {
+    this.env = env;
+  }
+
   public String getAppId() {
     return appId;
   }

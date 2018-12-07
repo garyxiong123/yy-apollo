@@ -6,7 +6,9 @@ import com.ctrip.framework.apollo.common.exception.BadRequestException;
 import com.ctrip.framework.apollo.common.exception.ServiceException;
 import com.ctrip.framework.apollo.core.ConfigConsts;
 import com.ctrip.framework.apollo.core.enums.ConfigFileFormat;
+import com.ctrip.framework.apollo.core.enums.Env;
 import com.ctrip.framework.apollo.core.utils.StringUtils;
+import com.ctrip.framework.apollo.portal.component.PortalSettings;
 import com.ctrip.framework.apollo.portal.entity.AuditEntity;
 import com.ctrip.framework.apollo.portal.entity.ClusterEntity;
 import com.ctrip.framework.apollo.portal.entity.Namespace;
@@ -50,6 +52,8 @@ public class AppNamespaceService {
   @Autowired
   private AuditService auditService;
 
+  @Autowired
+  private PortalSettings portalSettings;
   @Transactional
   public void batchDelete(String appId, String operator) {
     appNamespaceRepository.batchDeleteByAppId(appId, operator);
@@ -142,7 +146,6 @@ public class AppNamespaceService {
     String userId = userInfoHolder.getUser().getUserId();
     appNs.setDataChangeCreatedBy(userId);
     appNs.setDataChangeLastModifiedBy(userId);
-
     appNamespaceRepository.save(appNs);
   }
 
@@ -203,13 +206,14 @@ public class AppNamespaceService {
     AppNamespace createdAppNamespace = appNamespaceRepository.save(appNamespace);
     //查询该app的集群，并且保存集群对应 namespace到namespace中
     List<ClusterEntity> clusterEntities = clusterService.findClusters(appId);
-    for(ClusterEntity cluster : clusterEntities) {
+    //之前是批量通知， 改造后只需要 存一条到namespace中
+//    for(ClusterEntity cluster : clusterEntities) {
       Namespace namespaceEntity = new Namespace();
       BeanUtils.copyProperties(appNamespace, namespaceEntity);
-      namespaceEntity.setClusterName(cluster.getName());
+      namespaceEntity.setClusterName(clusterEntities.get(0).getName());
       namespaceEntity.setNamespaceName(appNamespaceName.toString());
       namespaceService.save(namespaceEntity);
-    }
+//    }
     roleInitializationService.initNamespaceRoles(appNamespace.getAppId(), appNamespace.getName(), operator);
     roleInitializationService.initNamespaceEnvRoles(appNamespace.getAppId(), appNamespace.getName(), operator);
 

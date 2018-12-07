@@ -164,7 +164,6 @@ public class AppService {
 
     createDefaultCluster(appId);
     roleInitializationService.initAppRoles(createdApp);
-    Tracer.logEvent(TracerEventType.CREATE_APP, appId);
 
     return createdApp;
   }

@@ -12,7 +12,12 @@ public interface ClusterRepository extends PagingAndSortingRepository<ClusterEnt
 
   List<ClusterEntity> findByAppId(String appId);
 
-  ClusterEntity findByAppIdAndName(String appId, String name);
+  List<ClusterEntity> findByAppIdAndEnv(String appId, String env);
+
+
+  ClusterEntity findByAppIdAndNameAndEnv(String appId, String name, String env);
+
+  List<ClusterEntity> findByAppIdAndName(String appId, String name);
 
 //  List<ClusterEntity> findByAppIdAndEnv(String appId, String env);
 

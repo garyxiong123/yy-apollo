@@ -79,7 +79,7 @@ public class NamespaceBranchService {
             throw new BadRequestException("namespace already has branch");
         }
 
-        ClusterEntity parentCluster = clusterService.findOne(appId, parentClusterName);
+        ClusterEntity parentCluster = clusterService.findOne(appId, parentClusterName, env.name());
         if (parentCluster == null || parentCluster.getParentClusterId() != 0) {
             throw new BadRequestException("cluster not exist or illegal cluster");
         }
@@ -167,7 +167,7 @@ public class NamespaceBranchService {
     @Transactional
     public void deleteBranch(String appId, String clusterName, String namespaceName,
                              String branchName, int branchStatus, String operator) {
-        ClusterEntity toDeleteClusterEntity = clusterService.findOne(appId, branchName);
+        ClusterEntity toDeleteClusterEntity = clusterService.findOne(appId, branchName,null);
         if (toDeleteClusterEntity == null) {
             return;
         }

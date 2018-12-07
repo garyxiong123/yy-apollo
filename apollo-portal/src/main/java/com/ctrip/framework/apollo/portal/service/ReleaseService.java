@@ -110,7 +110,7 @@ public class ReleaseService {
 
         Map<String, String> operateNamespaceItems = getNamespaceItems(namespace);
 
-        Namespace parentNamespace = namespaceService.findParentNamespace(namespace);
+        Namespace parentNamespace = namespaceService.findParentNamespace(namespace, env);
 
         //branch release
         if (parentNamespace != null) {
@@ -321,7 +321,7 @@ public class ReleaseService {
 
         Map<String, String> operateNamespaceItems = getNamespaceItems(namespace);
 
-        Namespace parentNamespace = namespaceService.findParentNamespace(namespace);
+        Namespace parentNamespace = namespaceService.findParentNamespace(namespace, env);
 
         //branch release
         if (parentNamespace != null) {

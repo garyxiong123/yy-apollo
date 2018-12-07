@@ -13,17 +13,29 @@
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 
 
-YyApollo（有鱼阿波罗）是携程框架部门研发的分布式配置中心，能够集中化管理应用不同环境、不同集群的配置，配置修改后能够实时推送到应用端，并且具备规范的权限、流程治理等特性，适用于微服务配置管理场景。
+YyApollo（有鱼阿波罗）是根据携程Apollo进行改造的，定制一般符合中小企业的配置中小服务（Apollo携程框架部门研发的分布式配置中心，能够集中化管理应用不同环境、不同集群的配置，配置修改后能够实时推送到应用端，并且具备规范的权限、流程治理等特性，适用于微服务配置管理场景。）
 携程apollo的体系过于复杂和代码层面的不足， 所以进行针对性的改造
+
+携程apollo的不足：
+  1： 设计过于复杂
+  2： springboot版本升级
+  3： 项目内部依赖过于混乱
+  4： 对于中小企业的配置中心应用不够简单
+  5： client升级， 根据应用去读取对应的配置
+  6： 减少部署依赖资源
+  
 服务端基于Spring Boot和Spring Cloud开发，打包后可以直接运行，不需要额外安装Tomcat等应用容器。
 
 Java客户端不依赖任何框架，能够运行于所有Java运行时环境，同时对Spring/Spring Boot环境也有较好的支持。
 
-.Net客户端不依赖任何框架，能够运行于所有.Net运行时环境。
 
 更多产品介绍参见[Apollo配置中心介绍](https://github.com/ctripcorp/apollo/wiki/Apollo%E9%85%8D%E7%BD%AE%E4%B8%AD%E5%BF%83%E4%BB%8B%E7%BB%8D)
 
 本地快速部署请参见[Quick Start](https://github.com/ctripcorp/apollo/wiki/Quick-Start)
+
+启动方式：  只要在apollo-portal 项目中，PortalApplication启动main方法就行
+
+
 
 # Screenshots
 ![配置界面](https://raw.githubusercontent.com/ctripcorp/apollo/master/doc/images/apollo-home-screenshot.png)
@@ -124,109 +136,3 @@ The project is licensed under the [Apache 2 license](https://github.com/ctripcor
 > 按照登记顺序排序，更多接入公司，欢迎在[https://github.com/ctripcorp/apollo/issues/451](https://github.com/ctripcorp/apollo/issues/451)登记（仅供开源用户参考）
 
 ![携程](https://raw.githubusercontent.com/ctripcorp/apollo/master/doc/images/known-users/ctrip.png) 
-![青石证券](https://raw.githubusercontent.com/ctripcorp/apollo/master/doc/images/known-users/bluestone.png) 
-![沙绿](https://raw.githubusercontent.com/ctripcorp/apollo/master/doc/images/known-users/sagreen.png) 
-![航旅纵横](https://raw.githubusercontent.com/ctripcorp/apollo/master/doc/images/known-users/umetrip.jpg) 
-![58转转](https://raw.githubusercontent.com/ctripcorp/apollo/master/doc/images/known-users/zhuanzhuan.png) 
-![蜂助手](https://raw.githubusercontent.com/ctripcorp/apollo/master/doc/images/known-users/phone580.png) 
-![海南航空](https://raw.githubusercontent.com/ctripcorp/apollo/master/doc/images/known-users/hainan-airlines.png) 
-![CVTE](https://raw.githubusercontent.com/ctripcorp/apollo/master/doc/images/known-users/cvte.png) 
-![明博教育](https://raw.githubusercontent.com/ctripcorp/apollo/master/doc/images/known-users/mainbo.jpg) 
-![麻袋理财](https://raw.githubusercontent.com/ctripcorp/apollo/master/doc/images/known-users/madailicai.png) 
-![美行科技](https://raw.githubusercontent.com/ctripcorp/apollo/master/doc/images/known-users/mxnavi.jpg) 
-![首展科技](https://raw.githubusercontent.com/ctripcorp/apollo/master/doc/images/known-users/fshows.jpg) 
-![易微行](https://raw.githubusercontent.com/ctripcorp/apollo/master/doc/images/known-users/feezu.png) 
-![人才加](https://raw.githubusercontent.com/ctripcorp/apollo/master/doc/images/known-users/rencaijia.png) 
-![凯京集团](https://raw.githubusercontent.com/ctripcorp/apollo/master/doc/images/known-users/keking.png) 
-![乐刻运动](https://raw.githubusercontent.com/ctripcorp/apollo/master/doc/images/known-users/leoao.png) 
-![大疆](https://raw.githubusercontent.com/ctripcorp/apollo/master/doc/images/known-users/dji.png) 
-![快看漫画](https://raw.githubusercontent.com/ctripcorp/apollo/master/doc/images/known-users/kkmh.png) 
-![我来贷](https://raw.githubusercontent.com/ctripcorp/apollo/master/doc/images/known-users/wolaidai.png) 
-![虚实软件](https://raw.githubusercontent.com/ctripcorp/apollo/master/doc/images/known-users/xsrj.png) 
-![网易严选](https://raw.githubusercontent.com/ctripcorp/apollo/master/doc/images/known-users/yanxuan.png) 
-![视觉中国](https://raw.githubusercontent.com/ctripcorp/apollo/master/doc/images/known-users/sjzg.png) 
-![资产360](https://raw.githubusercontent.com/ctripcorp/apollo/master/doc/images/known-users/zc360.png) 
-![亿咖通](https://raw.githubusercontent.com/ctripcorp/apollo/master/doc/images/known-users/ecarx.png) 
-![5173](https://raw.githubusercontent.com/ctripcorp/apollo/master/doc/images/known-users/5173.png) 
-![沪江](https://raw.githubusercontent.com/ctripcorp/apollo/master/doc/images/known-users/hujiang.png) 
-![网易云基础服务](https://raw.githubusercontent.com/ctripcorp/apollo/master/doc/images/known-users/163yun.png) 
-![现金巴士](https://raw.githubusercontent.com/ctripcorp/apollo/master/doc/images/known-users/cash-bus.png) 
-![锤子科技](https://raw.githubusercontent.com/ctripcorp/apollo/master/doc/images/known-users/smartisan.png) 
-![头等仓](https://raw.githubusercontent.com/ctripcorp/apollo/master/doc/images/known-users/toodc.png) 
-![吉祥航空](https://raw.githubusercontent.com/ctripcorp/apollo/master/doc/images/known-users/juneyaoair.png) 
-![263移动通信](https://raw.githubusercontent.com/ctripcorp/apollo/master/doc/images/known-users/263mobile.png) 
-![投投金融](https://raw.githubusercontent.com/ctripcorp/apollo/master/doc/images/known-users/toutoujinrong.png) 
-![每天健康](https://raw.githubusercontent.com/ctripcorp/apollo/master/doc/images/known-users/mytijian.png) 
-![麦芽金服](https://raw.githubusercontent.com/ctripcorp/apollo/master/doc/images/known-users/maiyabank.png) 
-![蜂向科技](https://raw.githubusercontent.com/ctripcorp/apollo/master/doc/images/known-users/fengunion.png) 
-![即科金融](https://raw.githubusercontent.com/ctripcorp/apollo/master/doc/images/known-users/geex-logo.png) 
-![贝壳网](https://raw.githubusercontent.com/ctripcorp/apollo/master/doc/images/known-users/beike.png) 
-![有赞](https://raw.githubusercontent.com/ctripcorp/apollo/master/doc/images/known-users/youzan.png) 
-![云集汇通](https://raw.githubusercontent.com/ctripcorp/apollo/master/doc/images/known-users/yunjihuitong.png) 
-![犀牛瀚海科技](https://raw.githubusercontent.com/ctripcorp/apollo/master/doc/images/known-users/rhinotech.png) 
-![农信互联](https://raw.githubusercontent.com/ctripcorp/apollo/master/doc/images/known-users/nxin.png) 
-![蘑菇租房](https://raw.githubusercontent.com/ctripcorp/apollo/master/doc/images/known-users/mgzf.png) 
-![狐狸金服](https://raw.githubusercontent.com/ctripcorp/apollo/master/doc/images/known-users/huli-logo.png) 
-![漫道集团](https://raw.githubusercontent.com/ctripcorp/apollo/master/doc/images/known-users/mandao.png) 
-![怪兽充电](https://raw.githubusercontent.com/ctripcorp/apollo/master/doc/images/known-users/enmonster.png) 
-![南瓜租房](https://raw.githubusercontent.com/ctripcorp/apollo/master/doc/images/known-users/nanguazufang.png) 
-![石投金融](https://raw.githubusercontent.com/ctripcorp/apollo/master/doc/images/known-users/shitoujinrong.png) 
-![土巴兔](https://raw.githubusercontent.com/ctripcorp/apollo/master/doc/images/known-users/tubatu.png) 
-![平安银行](https://raw.githubusercontent.com/ctripcorp/apollo/master/doc/images/known-users/payh_logo.png) 
-![新新贷](https://raw.githubusercontent.com/ctripcorp/apollo/master/doc/images/known-users/xinxindai.png) 
-![中国华戎科技集团](https://raw.githubusercontent.com/ctripcorp/apollo/master/doc/images/known-users/chrtc.png) 
-![涂鸦智能](https://raw.githubusercontent.com/ctripcorp/apollo/master/doc/images/known-users/tuya_logo.png) 
-![立创商城](https://raw.githubusercontent.com/ctripcorp/apollo/master/doc/images/known-users/szlcsc.jpg) 
-![乐赚金服](https://raw.githubusercontent.com/ctripcorp/apollo/master/doc/images/known-users/hairongyi.png) 
-![开心汽车](https://raw.githubusercontent.com/ctripcorp/apollo/master/doc/images/known-users/kxqc.png) 
-![乐赚金服](https://raw.githubusercontent.com/ctripcorp/apollo/master/doc/images/known-users/ppcredit.png) 
-![普元信息](https://raw.githubusercontent.com/ctripcorp/apollo/master/doc/images/known-users/primeton.png) 
-![医帮管家](https://raw.githubusercontent.com/ctripcorp/apollo/master/doc/images/known-users/hoskeeper.png) 
-![付啦信用卡管家](https://raw.githubusercontent.com/ctripcorp/apollo/master/doc/images/known-users/fula.png) 
-![悠哉网](https://raw.githubusercontent.com/ctripcorp/apollo/master/doc/images/known-users/uzai.png) 
-![梧桐诚选](https://raw.githubusercontent.com/ctripcorp/apollo/master/doc/images/known-users/91wutong.png) 
-![拍拍贷](https://raw.githubusercontent.com/ctripcorp/apollo/master/doc/images/known-users/ppdai.png) 
-![信用飞](https://raw.githubusercontent.com/ctripcorp/apollo/master/doc/images/known-users/xinyongfei.png) 
-![丁香园](https://raw.githubusercontent.com/ctripcorp/apollo/master/doc/images/known-users/dxy.png) 
-![国槐科技](https://raw.githubusercontent.com/ctripcorp/apollo/master/doc/images/known-users/ghtech.png) 
-![亲宝宝](https://raw.githubusercontent.com/ctripcorp/apollo/master/doc/images/known-users/qbb.png) 
-![华为视频直播](https://raw.githubusercontent.com/ctripcorp/apollo/master/doc/images/known-users/huawei_logo.png) 
-![微播易](https://raw.githubusercontent.com/ctripcorp/apollo/master/doc/images/known-users/weiboyi.png) 
-![欧飞](https://raw.githubusercontent.com/ctripcorp/apollo/master/doc/images/known-users/ofpay.png) 
-![迷说](https://raw.githubusercontent.com/ctripcorp/apollo/master/doc/images/known-users/mishuo.png) 
-![一下科技](https://raw.githubusercontent.com/ctripcorp/apollo/master/doc/images/known-users/yixia.png) 
-![DaoCloud](https://raw.githubusercontent.com/ctripcorp/apollo/master/doc/images/known-users/daocloud.png) 
-![汽摩交易所](https://raw.githubusercontent.com/ctripcorp/apollo/master/doc/images/known-users/cnvex.png) 
-![好未来教育集团](https://raw.githubusercontent.com/ctripcorp/apollo/master/doc/images/known-users/100tal.png) 
-![猎户星空](https://raw.githubusercontent.com/ctripcorp/apollo/master/doc/images/known-users/ainirobot.png) 
-![卓健科技](https://raw.githubusercontent.com/ctripcorp/apollo/master/doc/images/known-users/zhuojian.png) 
-![银江股份](https://raw.githubusercontent.com/ctripcorp/apollo/master/doc/images/known-users/enjoyor.png) 
-![途虎养车](https://raw.githubusercontent.com/ctripcorp/apollo/master/doc/images/known-users/tuhu.png) 
-![河姆渡](https://raw.githubusercontent.com/ctripcorp/apollo/master/doc/images/known-users/homedo.png) 
-![新网银行](https://raw.githubusercontent.com/ctripcorp/apollo/master/doc/images/known-users/xwbank.png) 
-![中旅安信云贷](https://raw.githubusercontent.com/ctripcorp/apollo/master/doc/images/known-users/ctspcl.png) 
-![美柚](https://raw.githubusercontent.com/ctripcorp/apollo/master/doc/images/known-users/meiyou.png) 
-![震坤行](https://raw.githubusercontent.com/ctripcorp/apollo/master/doc/images/known-users/zkh-logo.png) 
-![万谷盛世](https://raw.githubusercontent.com/ctripcorp/apollo/master/doc/images/known-users/wgss.png) 
-![铂涛旅行](https://raw.githubusercontent.com/ctripcorp/apollo/master/doc/images/known-users/plateno.png) 
-![乐心](https://raw.githubusercontent.com/ctripcorp/apollo/master/doc/images/known-users/lifesense.png) 
-![亿投传媒](https://raw.githubusercontent.com/ctripcorp/apollo/master/doc/images/known-users/reachmedia.png) 
-![股先生](https://raw.githubusercontent.com/ctripcorp/apollo/master/doc/images/known-users/guxiansheng.png) 
-![财学堂](https://raw.githubusercontent.com/ctripcorp/apollo/master/doc/images/known-users/caixuetang.png) 
-![4399](https://raw.githubusercontent.com/ctripcorp/apollo/master/doc/images/known-users/4399.png) 
-![汽车之家](https://raw.githubusercontent.com/ctripcorp/apollo/master/doc/images/known-users/autohome.png) 
-![面包财经](https://raw.githubusercontent.com/ctripcorp/apollo/master/doc/images/known-users/mbcaijing.png) 
-![虎扑](https://raw.githubusercontent.com/ctripcorp/apollo/master/doc/images/known-users/hoopchina.png) 
-![搜狐汽车](https://raw.githubusercontent.com/ctripcorp/apollo/master/doc/images/known-users/sohu-auto.png) 
-![量富征信](https://raw.githubusercontent.com/ctripcorp/apollo/master/doc/images/known-users/liangfuzhengxin.png) 
-![卖好车](https://raw.githubusercontent.com/ctripcorp/apollo/master/doc/images/known-users/maihaoche.png) 
-![中移物联网](https://raw.githubusercontent.com/ctripcorp/apollo/master/doc/images/known-users/zyiot.jpg) 
-![易车网](https://raw.githubusercontent.com/ctripcorp/apollo/master/doc/images/known-users/biauto.png) 
-![一药网](https://raw.githubusercontent.com/ctripcorp/apollo/master/doc/images/known-users/maiyaole.png) 
-![小影](https://raw.githubusercontent.com/ctripcorp/apollo/master/doc/images/known-users/xiaoying.png) 
-![彩贝壳](https://raw.githubusercontent.com/ctripcorp/apollo/master/doc/images/known-users/caibeike.png) 
-![YEELIGHT](https://raw.githubusercontent.com/ctripcorp/apollo/master/doc/images/known-users/yeelight.png) 
-![积目](https://raw.githubusercontent.com/ctripcorp/apollo/master/doc/images/known-users/itsgmu.png) 
-![极致医疗](https://raw.githubusercontent.com/ctripcorp/apollo/master/doc/images/known-users/acmedcare.png) 
-![金汇金融](https://raw.githubusercontent.com/ctripcorp/apollo/master/doc/images/known-users/jinhui365.png) 
-![久柏易游](https://raw.githubusercontent.com/ctripcorp/apollo/master/doc/images/known-users/900etrip.png) 

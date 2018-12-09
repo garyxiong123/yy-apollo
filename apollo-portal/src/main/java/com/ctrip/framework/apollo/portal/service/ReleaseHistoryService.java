@@ -77,7 +77,7 @@ public class ReleaseHistoryService {
   public List<ReleaseHistoryBO> findNamespaceReleaseHistory(String appId, Env env, String clusterName,
                                                             String namespaceName, int page, int size) {
     Pageable page1 = PageRequest.of(0,10);
-    Page<ReleaseHistory> result = releaseHistoryRepository.findByAppIdAndClusterNameAndNamespaceNameOrderByIdDesc(appId, env, clusterName,
+    Page<ReleaseHistory> result = releaseHistoryRepository.findByAppIdAndEnvAndClusterNameAndNamespaceNameOrderByIdDesc(appId, env.name(), clusterName,
             namespaceName, page1);
 //            releaseHistoryAPI.findReleaseHistoriesByNamespace(appId, env, clusterName,
 //                                                                                          namespaceName, page, size);
@@ -171,7 +171,7 @@ public class ReleaseHistoryService {
   @Transactional
   public ReleaseHistory createReleaseHistory(String appId, String clusterName, String
           namespaceName, String branchName, long releaseId, long previousReleaseId, int operation,
-                                             Map<String, Object> operationContext, String operator) {
+                                             Map<String, Object> operationContext, String operator, String env) {
     ReleaseHistory releaseHistory = new ReleaseHistory();
     releaseHistory.setAppId(appId);
     releaseHistory.setClusterName(clusterName);
@@ -180,6 +180,7 @@ public class ReleaseHistoryService {
     releaseHistory.setReleaseId(releaseId);
     releaseHistory.setPreviousReleaseId(previousReleaseId);
     releaseHistory.setOperation(operation);
+    releaseHistory.setEnv(env);
     if (operationContext == null) {
       releaseHistory.setOperationContext("{}"); //default empty object
     } else {

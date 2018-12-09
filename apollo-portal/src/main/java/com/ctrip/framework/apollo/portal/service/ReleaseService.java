@@ -108,7 +108,7 @@ public class ReleaseService {
 
         checkLock(namespace, env, isEmergencyPublish, operator);
 
-        Map<String, String> operateNamespaceItems = getNamespaceItems(namespace);
+        Map<String, String> operateNamespaceItems = getNamespaceItems(namespace, env);
 
         Namespace parentNamespace = namespaceService.findParentNamespace(namespace, env);
 
@@ -138,7 +138,7 @@ public class ReleaseService {
 
         if (deleteBranch) {
             namespaceBranchService.deleteBranch(appId, clusterName, namespaceName, branchName,
-                    NamespaceBranchStatus.MERGED, changeSets.getDataChangeLastModifiedBy());
+                    NamespaceBranchStatus.MERGED, changeSets.getDataChangeLastModifiedBy(), env.name());
         }
 
         return release;
@@ -204,7 +204,9 @@ public class ReleaseService {
     }
 
     public List<Release> findReleaseByIds(Env env, Set<Long> releaseIds) {
-        return null;
+        List<Release> releases = releaseRepository.findByEnvAndIdIn(env.name(), releaseIds);
+
+        return releases;
     }
 
     public Release loadLatestRelease(String appId, Env env, String clusterName, String namespaceName) {
@@ -300,7 +302,7 @@ public class ReleaseService {
                 .getNamespaceName());
         long branchReleaseId = branchRelease == null ? 0 : branchRelease.getId();
 
-        Map<String, String> operateNamespaceItems = getNamespaceItems(namespace);
+        Map<String, String> operateNamespaceItems = getNamespaceItems(namespace, env);
 
         Map<String, Object> operationContext = Maps.newHashMap();
         operationContext.put(ReleaseOperationContext.SOURCE_BRANCH, branchName);
@@ -319,7 +321,7 @@ public class ReleaseService {
 
         checkLock(namespace, env, isEmergencyPublish, operator);
 
-        Map<String, String> operateNamespaceItems = getNamespaceItems(namespace);
+        Map<String, String> operateNamespaceItems = getNamespaceItems(namespace, env);
 
         Namespace parentNamespace = namespaceService.findParentNamespace(namespace, env);
 
@@ -441,7 +443,7 @@ public class ReleaseService {
         releaseHistoryService.createReleaseHistory(namespace.getAppId(), namespace.getClusterName(),
                 namespace.getNamespaceName(), namespace.getClusterName(),
                 release.getId(), previousReleaseId, releaseOperation,
-                operationContext, operator);
+                operationContext, operator, env);
 
         return release;
     }
@@ -477,7 +479,7 @@ public class ReleaseService {
         releaseHistoryService.createReleaseHistory(parentNamespace.getAppId(), parentNamespace.getClusterName(),
                 parentNamespace.getNamespaceName(), childNamespace.getClusterName(),
                 release.getId(),
-                previousReleaseId, releaseOperation, releaseOperationContext, operator);
+                previousReleaseId, releaseOperation, releaseOperationContext, operator, env);
 
         return release;
     }
@@ -499,8 +501,8 @@ public class ReleaseService {
     }
 
 
-    private Map<String, String> getNamespaceItems(Namespace namespace) {
-        List<Item> items = itemService.findItemsWithoutOrdered(namespace.getId());
+    private Map<String, String> getNamespaceItems(Namespace namespace, String env) {
+        List<Item> items = itemService.findItemsWithoutOrdered(namespace.getId(), env);
         Map<String, String> configurations = new HashMap<String, String>();
         for (Item item : items) {
             if (StringUtils.isEmpty(item.getKey())) {
@@ -592,7 +594,7 @@ public class ReleaseService {
 
         releaseHistoryService.createReleaseHistory(appId, clusterName,
                 namespaceName, clusterName, twoLatestActiveReleases.get(1).getId(),
-                release.getId(), ReleaseOperation.ROLLBACK, null, operator);
+                release.getId(), ReleaseOperation.ROLLBACK, null, operator, release.getEnv());
 
         //publish child namespace if namespace has child
         rollbackChildNamespace(appId, release.getEnv(), clusterName, namespaceName, twoLatestActiveReleases, operator);
@@ -603,7 +605,7 @@ public class ReleaseService {
     private void rollbackChildNamespace(String appId, String env, String clusterName, String namespaceName,
                                         List<Release> parentNamespaceTwoLatestActiveRelease, String operator) {
         Namespace parentNamespace = namespaceService.findOne(appId, clusterName, namespaceName);
-        Namespace childNamespace = namespaceService.findChildNamespace(appId, clusterName, namespaceName);
+        Namespace childNamespace = namespaceService.findChildNamespace(appId, clusterName, namespaceName, env);
         if (parentNamespace == null || childNamespace == null) {
             return;
         }

@@ -1,4 +1,4 @@
-package com.ctrip.framework.apollo.common.controller;
+package com.ctrip.framework.apollo.common.config;
 
 import com.google.common.collect.Lists;
 import com.google.gson.GsonBuilder;

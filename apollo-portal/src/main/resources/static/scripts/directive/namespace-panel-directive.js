@@ -24,7 +24,6 @@ function directive($window, toastr, AppUtil, EventManager, PermissionService, Na
             showMergeAndPublishGrayTips: '='
         },
         link: function (scope) {
-            debugger
             //constants
             var namespace_view_type = {
                 TEXT: 'text',
@@ -118,7 +117,6 @@ function directive($window, toastr, AppUtil, EventManager, PermissionService, Na
                             if (!result.baseInfo) {
                                 return;
                             }
-
                             //namespace has branch
                             namespace.hasBranch = true;
                             namespace.branchName = result.baseInfo.clusterName;
@@ -163,7 +161,6 @@ function directive($window, toastr, AppUtil, EventManager, PermissionService, Na
                         if(branch.items != null) {
                             branch.items.forEach(function (item) {
                                 var key = item.item.key;
-                                debugger
                                 var masterItem = masterItemsMap[key];
                                 //modify master item and set item's masterReleaseValue
                                 if (masterItem) {

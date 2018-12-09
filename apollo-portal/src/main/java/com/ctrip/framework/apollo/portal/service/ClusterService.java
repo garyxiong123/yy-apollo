@@ -177,9 +177,9 @@ public class ClusterService {
 
     }
 
-    public List<ClusterEntity> findChildClusters(String appId, String parentClusterName) {
+    public List<ClusterEntity> findChildClusters(String appId, String parentClusterName, String env) {
         //TODO fix
-        ClusterEntity parentClusterEntity = findOne(appId, parentClusterName, null);
+        ClusterEntity parentClusterEntity = findOne(appId, parentClusterName, env);
         if (parentClusterEntity == null) {
             throw new BadRequestException("parent cluster not exist");
         }

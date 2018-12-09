@@ -515,13 +515,13 @@ public class NamespaceService {
         return namespaceRepository.findByAppIdAndNamespaceNameOrderByIdAsc(appId, namespaceName);
     }
 
-    public Namespace findChildNamespace(String appId, String parentClusterName, String namespaceName) {
+    public Namespace findChildNamespace(String appId, String parentClusterName, String namespaceName, String env) {
         List<Namespace> namespaces = findByAppIdAndNamespaceName(appId, namespaceName);
         if (CollectionUtils.isEmpty(namespaces) || namespaces.size() == 1) {
             return null;
         }
 
-        List<ClusterEntity> childClusterEntities = clusterService.findChildClusters(appId, parentClusterName);
+        List<ClusterEntity> childClusterEntities = clusterService.findChildClusters(appId, parentClusterName, env);
         if (CollectionUtils.isEmpty(childClusterEntities)) {
             return null;
         }
@@ -542,7 +542,7 @@ public class NamespaceService {
         String parentClusterName = parentNamespace.getClusterName();
         String namespaceName = parentNamespace.getNamespaceName();
 
-        return findChildNamespace(appId, parentClusterName, namespaceName);
+        return findChildNamespace(appId, parentClusterName, namespaceName, null);
 
     }
 

@@ -92,18 +92,18 @@ public class ItemService {
     }
 
 
-    public List<Item> findItemsWithoutOrdered(Long namespaceId) {
-        List<Item> items = itemRepository.findByNamespaceId(namespaceId);
+    public List<Item> findItemsWithoutOrdered(Long namespaceId, String env) {
+        List<Item> items = itemRepository.findByNamespaceIdAndEnv(namespaceId, env);
         if (items == null) {
             return Collections.emptyList();
         }
         return items;
     }
 
-    public List<Item> findItemsWithoutOrdered(String appId, String clusterName, String namespaceName) {
+    public List<Item> findItemsWithoutOrdered(String appId, String clusterName, String namespaceName, String env) {
         Namespace namespace = namespaceService.findOne(appId, clusterName, namespaceName);
         if (namespace != null) {
-            return findItemsWithoutOrdered(namespace.getId());
+            return findItemsWithoutOrdered(namespace.getId(), env);
         } else {
             return Collections.emptyList();
         }

@@ -1,4 +1,4 @@
-package com.ctrip.framework.apollo.common.controller;
+package com.ctrip.framework.apollo.common.config;
 
 import org.springframework.boot.web.embedded.tomcat.TomcatServletWebServerFactory;
 import org.springframework.boot.web.server.MimeMappings;

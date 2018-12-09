@@ -59,7 +59,7 @@
 //      releaseMessageScanner.addMessageListener(grayReleaseRulesHolder);
 //      //2. handle server cache
 //      releaseMessageScanner.addMessageListener(configService);
-//      releaseMessageScanner.addMessageListener(configFileController);
+//      releaseMessageScanner.addMessageListeneRr(configFileController);
 //      //3. notify clients
 //      releaseMessageScanner.addMessageListener(notificationControllerV2);
 //      releaseMessageScanner.addMessageListener(notificationController);

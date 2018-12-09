@@ -40,6 +40,17 @@ public class ReleaseHistory extends BaseEntity {
   @Column(name = "OperationContext", nullable = false)
   private String operationContext;
 
+  @Column(name = "Env")
+  private String env;
+
+  public String getEnv() {
+    return env;
+  }
+
+  public void setEnv(String env) {
+    this.env = env;
+  }
+
   public String getAppId() {
     return appId;
   }

@@ -72,7 +72,7 @@ Java客户端不依赖任何框架，能够运行于所有Java运行时环境，
 * **客户端配置信息监控**
   * 可以方便的看到配置在被哪些实例使用
 
-* **提供Java和.Net原生客户端**
+* **提供Java
   * 支持Spring Placeholder, Annotation和Spring Boot的ConfigurationProperties，方便应用使用（需要Spring 3.1.1+）
 
 * **提供开放平台API**
@@ -123,14 +123,9 @@ Java客户端不依赖任何框架，能够运行于所有Java运行时环境，
 # Support
 <table>
   <thead>
-    <th>Apollo配置中心技术支持②群<br />群号：904287263</th>
-    <th>Apollo配置中心技术支持①群<br />群号：375526581（已满）</th>
+    <th>YyApollo配置中心技术支持②群<br />群号：502238410</th>
   </thead>
   <tbody>
-    <tr>
-      <td><img src="https://raw.githubusercontent.com/ctripcorp/apollo/master/doc/images/tech-support-qq-2.png" alt="tech-support-qq-2"></td>
-      <td><img src="https://raw.githubusercontent.com/ctripcorp/apollo/master/doc/images/tech-support-qq-1.png" alt="tech-support-qq-1"></td>
-    </tr>
   </tbody>
 </table>
 
@@ -145,4 +140,3 @@ The project is licensed under the [Apache 2 license](https://github.com/ctripcor
 
 > 按照登记顺序排序，更多接入公司，欢迎在[https://github.com/ctripcorp/apollo/issues/451](https://github.com/ctripcorp/apollo/issues/451)登记（仅供开源用户参考）
 
-![携程](https://raw.githubusercontent.com/ctripcorp/apollo/master/doc/images/known-users/ctrip.png) 

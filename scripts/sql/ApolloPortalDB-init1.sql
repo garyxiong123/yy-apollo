@@ -11,7 +11,7 @@
  Target Server Version : 80012
  File Encoding         : 65001
 
- Date: 10/12/2018 09:14:48
+ Date: 10/12/2018 17:53:31
 */
 
 SET NAMES utf8mb4;
@@ -44,7 +44,7 @@ CREATE TABLE `App` (
 -- Records of App
 -- ----------------------------
 BEGIN;
-INSERT INTO `App` VALUES (1, 'test1', 'test1', 'TEST1', '样例部门1', 'apollo', 'apollo@acme.com', b'0', 'apollo', '2018-12-10 09:12:57', 'apollo', '2018-12-10 09:12:57');
+INSERT INTO `App` VALUES (1, 'test1', 'test1', 'TEST1', '样例部门1', 'apollo', 'apollo@acme.com', b'0', 'apollo', '2018-12-10 17:50:48', 'apollo', '2018-12-10 17:50:48');
 COMMIT;
 
 -- ----------------------------
@@ -67,14 +67,13 @@ CREATE TABLE `AppNamespace` (
   KEY `IX_AppId` (`AppId`),
   KEY `Name_AppId` (`Name`,`AppId`),
   KEY `DataChange_LastTime` (`DataChange_LastTime`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='应用namespace定义';
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='应用namespace定义';
 
 -- ----------------------------
 -- Records of AppNamespace
 -- ----------------------------
 BEGIN;
-INSERT INTO `AppNamespace` VALUES (1, 'application', 'test1', 'properties', b'0', 'default app namespace', b'0', 'apollo', '2018-12-10 09:12:57', 'apollo', '2018-12-10 09:12:57');
-INSERT INTO `AppNamespace` VALUES (2, 'TEST1.test22', 'test1', 'properties', b'1', '', b'0', 'apollo', '2018-12-10 09:14:04', 'apollo', '2018-12-10 09:14:04');
+INSERT INTO `AppNamespace` VALUES (1, 'application', 'test1', 'properties', b'0', 'default app namespace', b'0', 'apollo', '2018-12-10 17:50:48', 'apollo', '2018-12-10 17:50:48');
 COMMIT;
 
 -- ----------------------------
@@ -94,22 +93,20 @@ CREATE TABLE `Audit` (
   `DataChange_LastTime` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '最后修改时间',
   PRIMARY KEY (`Id`),
   KEY `DataChange_LastTime` (`DataChange_LastTime`)
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='日志审计表';
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='日志审计表';
 
 -- ----------------------------
 -- Records of Audit
 -- ----------------------------
 BEGIN;
-INSERT INTO `Audit` VALUES (1, 'Namespace', 67, 'INSERT', NULL, b'0', 'apollo', '2018-12-10 09:12:57', NULL, '2018-12-10 09:12:57');
-INSERT INTO `Audit` VALUES (2, 'ClusterEntity', 80, 'INSERT', NULL, b'0', 'apollo', '2018-12-10 09:12:57', NULL, '2018-12-10 09:12:57');
-INSERT INTO `Audit` VALUES (3, 'ClusterEntity', 81, 'INSERT', NULL, b'0', 'apollo', '2018-12-10 09:12:57', NULL, '2018-12-10 09:12:57');
-INSERT INTO `Audit` VALUES (4, 'ClusterEntity', 82, 'INSERT', NULL, b'0', 'apollo', '2018-12-10 09:12:57', NULL, '2018-12-10 09:12:57');
-INSERT INTO `Audit` VALUES (5, 'ClusterEntity', 83, 'INSERT', NULL, b'0', 'apollo', '2018-12-10 09:12:57', NULL, '2018-12-10 09:12:57');
-INSERT INTO `Audit` VALUES (6, 'Item', 285, 'INSERT', NULL, b'0', 'apollo', '2018-12-10 09:13:21', NULL, '2018-12-10 09:13:21');
-INSERT INTO `Audit` VALUES (7, 'ItemSet', NULL, 'INSERT', NULL, b'0', 'apollo', '2018-12-10 09:13:21', NULL, '2018-12-10 09:13:21');
-INSERT INTO `Audit` VALUES (8, 'Release', 102, 'INSERT', NULL, b'0', 'apollo', '2018-12-10 09:13:24', NULL, '2018-12-10 09:13:24');
-INSERT INTO `Audit` VALUES (9, 'ReleaseHistory', 1, 'INSERT', NULL, b'0', 'apollo', '2018-12-10 09:13:24', NULL, '2018-12-10 09:13:24');
-INSERT INTO `Audit` VALUES (10, 'Namespace', 68, 'INSERT', NULL, b'0', 'apollo', '2018-12-10 09:14:04', NULL, '2018-12-10 09:14:04');
+INSERT INTO `Audit` VALUES (1, 'Namespace', 1, 'INSERT', NULL, b'0', 'apollo', '2018-12-10 17:50:48', NULL, '2018-12-10 17:50:48');
+INSERT INTO `Audit` VALUES (2, 'Namespace', 2, 'INSERT', NULL, b'0', 'apollo', '2018-12-10 17:50:48', NULL, '2018-12-10 17:50:48');
+INSERT INTO `Audit` VALUES (3, 'Namespace', 3, 'INSERT', NULL, b'0', 'apollo', '2018-12-10 17:50:48', NULL, '2018-12-10 17:50:48');
+INSERT INTO `Audit` VALUES (4, 'Namespace', 4, 'INSERT', NULL, b'0', 'apollo', '2018-12-10 17:50:48', NULL, '2018-12-10 17:50:48');
+INSERT INTO `Audit` VALUES (5, 'ClusterEntity', 1, 'INSERT', NULL, b'0', 'apollo', '2018-12-10 17:50:48', NULL, '2018-12-10 17:50:48');
+INSERT INTO `Audit` VALUES (6, 'ClusterEntity', 2, 'INSERT', NULL, b'0', 'apollo', '2018-12-10 17:50:48', NULL, '2018-12-10 17:50:48');
+INSERT INTO `Audit` VALUES (7, 'ClusterEntity', 3, 'INSERT', NULL, b'0', 'apollo', '2018-12-10 17:50:48', NULL, '2018-12-10 17:50:48');
+INSERT INTO `Audit` VALUES (8, 'ClusterEntity', 4, 'INSERT', NULL, b'0', 'apollo', '2018-12-10 17:50:48', NULL, '2018-12-10 17:50:48');
 COMMIT;
 
 -- ----------------------------
@@ -121,14 +118,7 @@ CREATE TABLE `Authorities` (
   `Username` varchar(50) NOT NULL,
   `Authority` varchar(50) NOT NULL,
   PRIMARY KEY (`Id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-
--- ----------------------------
--- Records of Authorities
--- ----------------------------
-BEGIN;
-INSERT INTO `Authorities` VALUES (1, 'apollo', 'ROLE_user');
-COMMIT;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- ----------------------------
 -- Table structure for Cluster
@@ -149,16 +139,16 @@ CREATE TABLE `Cluster` (
   KEY `IX_AppId_Name` (`AppId`,`Name`),
   KEY `IX_ParentClusterId` (`ParentClusterId`),
   KEY `DataChange_LastTime` (`DataChange_LastTime`)
-) ENGINE=InnoDB AUTO_INCREMENT=84 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='集群';
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='集群';
 
 -- ----------------------------
 -- Records of Cluster
 -- ----------------------------
 BEGIN;
-INSERT INTO `Cluster` VALUES (80, 'default', 'test1', 0, b'0', 'apollo', '2018-12-10 09:12:57', 'apollo', '2018-12-10 09:12:57', 'DEV');
-INSERT INTO `Cluster` VALUES (81, 'default', 'test1', 0, b'0', 'apollo', '2018-12-10 09:12:57', 'apollo', '2018-12-10 09:12:57', 'TEST');
-INSERT INTO `Cluster` VALUES (82, 'default', 'test1', 0, b'0', 'apollo', '2018-12-10 09:12:57', 'apollo', '2018-12-10 09:12:57', 'PRE');
-INSERT INTO `Cluster` VALUES (83, 'default', 'test1', 0, b'0', 'apollo', '2018-12-10 09:12:57', 'apollo', '2018-12-10 09:12:57', 'PROD');
+INSERT INTO `Cluster` VALUES (1, 'default', 'test1', 0, b'0', 'apollo', '2018-12-10 17:50:48', 'apollo', '2018-12-10 17:50:48', 'DEV');
+INSERT INTO `Cluster` VALUES (2, 'default', 'test1', 0, b'0', 'apollo', '2018-12-10 17:50:48', 'apollo', '2018-12-10 17:50:48', 'TEST');
+INSERT INTO `Cluster` VALUES (3, 'default', 'test1', 0, b'0', 'apollo', '2018-12-10 17:50:48', 'apollo', '2018-12-10 17:50:48', 'PRE');
+INSERT INTO `Cluster` VALUES (4, 'default', 'test1', 0, b'0', 'apollo', '2018-12-10 17:50:48', 'apollo', '2018-12-10 17:50:48', 'PROD');
 COMMIT;
 
 -- ----------------------------
@@ -183,14 +173,7 @@ CREATE TABLE `Commit` (
   KEY `AppId` (`AppId`(191)),
   KEY `ClusterName` (`ClusterName`(191)),
   KEY `NamespaceName` (`NamespaceName`(191))
-) ENGINE=InnoDB AUTO_INCREMENT=56 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='commit 历史表';
-
--- ----------------------------
--- Records of Commit
--- ----------------------------
-BEGIN;
-INSERT INTO `Commit` VALUES (55, '{\"createItems\":[{\"namespaceId\":67,\"key\":\"11\",\"value\":\"11\",\"comment\":\"\",\"lineNum\":1,\"id\":0,\"isDeleted\":false}],\"updateItems\":[],\"deleteItems\":[],\"dataChangeLastModifiedBy\":\"apollo\"}', 'test1', 'default', 'application', NULL, b'0', 'apollo', '2018-12-10 09:13:21', 'apollo', '2018-12-10 09:13:21', 'DEV');
-COMMIT;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='commit 历史表';
 
 -- ----------------------------
 -- Table structure for Consumer
@@ -329,7 +312,7 @@ CREATE TABLE `Instance` (
   UNIQUE KEY `IX_UNIQUE_KEY` (`AppId`,`ClusterName`,`Ip`,`DataCenter`),
   KEY `IX_IP` (`Ip`),
   KEY `IX_DataChange_LastTime` (`DataChange_LastTime`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='使用配置的应用实例';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='使用配置的应用实例';
 
 -- ----------------------------
 -- Table structure for InstanceConfig
@@ -372,14 +355,7 @@ CREATE TABLE `Item` (
   PRIMARY KEY (`Id`),
   KEY `IX_GroupId` (`NamespaceId`),
   KEY `DataChange_LastTime` (`DataChange_LastTime`)
-) ENGINE=InnoDB AUTO_INCREMENT=286 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='配置项目';
-
--- ----------------------------
--- Records of Item
--- ----------------------------
-BEGIN;
-INSERT INTO `Item` VALUES (285, 67, '11', '11', '', 1, b'0', 'apollo', '2018-12-10 09:13:21', 'apollo', '2018-12-10 09:13:21', 'DEV');
-COMMIT;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='配置项目';
 
 -- ----------------------------
 -- Table structure for Namespace
@@ -395,18 +371,21 @@ CREATE TABLE `Namespace` (
   `DataChange_CreatedTime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
   `DataChange_LastModifiedBy` varchar(32) DEFAULT '' COMMENT '最后修改人邮箱前缀',
   `DataChange_LastTime` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '最后修改时间',
+  `Env` varchar(30) DEFAULT NULL,
   PRIMARY KEY (`Id`),
   KEY `AppId_ClusterName_NamespaceName` (`AppId`(191),`ClusterName`(191),`NamespaceName`(191)),
   KEY `DataChange_LastTime` (`DataChange_LastTime`),
   KEY `IX_NamespaceName` (`NamespaceName`(191))
-) ENGINE=InnoDB AUTO_INCREMENT=69 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='命名空间';
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='命名空间';
 
 -- ----------------------------
 -- Records of Namespace
 -- ----------------------------
 BEGIN;
-INSERT INTO `Namespace` VALUES (67, 'test1', 'default', 'application', b'0', 'apollo', '2018-12-10 09:12:57', 'apollo', '2018-12-10 09:12:57');
-INSERT INTO `Namespace` VALUES (68, 'test1', 'default', 'TEST1.test22', b'0', 'apollo', '2018-12-10 09:14:04', 'apollo', '2018-12-10 09:14:04');
+INSERT INTO `Namespace` VALUES (1, 'test1', 'default', 'application', b'0', 'apollo', '2018-12-10 17:50:48', 'apollo', '2018-12-10 17:50:48', 'DEV');
+INSERT INTO `Namespace` VALUES (2, 'test1', 'default', 'application', b'0', 'apollo', '2018-12-10 17:50:48', 'apollo', '2018-12-10 17:50:48', 'TEST');
+INSERT INTO `Namespace` VALUES (3, 'test1', 'default', 'application', b'0', 'apollo', '2018-12-10 17:50:48', 'apollo', '2018-12-10 17:50:48', 'PRE');
+INSERT INTO `Namespace` VALUES (4, 'test1', 'default', 'application', b'0', 'apollo', '2018-12-10 17:50:48', 'apollo', '2018-12-10 17:50:48', 'PROD');
 COMMIT;
 
 -- ----------------------------
@@ -443,35 +422,25 @@ CREATE TABLE `Permission` (
   PRIMARY KEY (`Id`),
   KEY `IX_TargetId_PermissionType` (`TargetId`(191),`PermissionType`),
   KEY `IX_DataChange_LastTime` (`DataChange_LastTime`)
-) ENGINE=InnoDB AUTO_INCREMENT=582 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='permission表';
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='permission表';
 
 -- ----------------------------
 -- Records of Permission
 -- ----------------------------
 BEGIN;
-INSERT INTO `Permission` VALUES (559, 'CreateCluster', 'test1', b'0', 'apollo', '2018-12-10 09:12:57', 'apollo', '2018-12-10 09:12:57');
-INSERT INTO `Permission` VALUES (560, 'CreateNamespace', 'test1', b'0', 'apollo', '2018-12-10 09:12:57', 'apollo', '2018-12-10 09:12:57');
-INSERT INTO `Permission` VALUES (561, 'AssignRole', 'test1', b'0', 'apollo', '2018-12-10 09:12:57', 'apollo', '2018-12-10 09:12:57');
-INSERT INTO `Permission` VALUES (562, 'ModifyNamespace', 'test1+application', b'0', 'apollo', '2018-12-10 09:12:57', 'apollo', '2018-12-10 09:12:57');
-INSERT INTO `Permission` VALUES (563, 'ReleaseNamespace', 'test1+application', b'0', 'apollo', '2018-12-10 09:12:57', 'apollo', '2018-12-10 09:12:57');
-INSERT INTO `Permission` VALUES (564, 'ModifyNamespace', 'test1+application+DEV', b'0', 'apollo', '2018-12-10 09:12:57', 'apollo', '2018-12-10 09:12:57');
-INSERT INTO `Permission` VALUES (565, 'ReleaseNamespace', 'test1+application+DEV', b'0', 'apollo', '2018-12-10 09:12:57', 'apollo', '2018-12-10 09:12:57');
-INSERT INTO `Permission` VALUES (566, 'ModifyNamespace', 'test1+application+TEST', b'0', 'apollo', '2018-12-10 09:12:57', 'apollo', '2018-12-10 09:12:57');
-INSERT INTO `Permission` VALUES (567, 'ReleaseNamespace', 'test1+application+TEST', b'0', 'apollo', '2018-12-10 09:12:58', 'apollo', '2018-12-10 09:12:58');
-INSERT INTO `Permission` VALUES (568, 'ModifyNamespace', 'test1+application+PRE', b'0', 'apollo', '2018-12-10 09:12:58', 'apollo', '2018-12-10 09:12:58');
-INSERT INTO `Permission` VALUES (569, 'ReleaseNamespace', 'test1+application+PRE', b'0', 'apollo', '2018-12-10 09:12:58', 'apollo', '2018-12-10 09:12:58');
-INSERT INTO `Permission` VALUES (570, 'ModifyNamespace', 'test1+application+PROD', b'0', 'apollo', '2018-12-10 09:12:58', 'apollo', '2018-12-10 09:12:58');
-INSERT INTO `Permission` VALUES (571, 'ReleaseNamespace', 'test1+application+PROD', b'0', 'apollo', '2018-12-10 09:12:58', 'apollo', '2018-12-10 09:12:58');
-INSERT INTO `Permission` VALUES (572, 'ModifyNamespace', 'test1+TEST1.test22', b'0', 'apollo', '2018-12-10 09:14:04', 'apollo', '2018-12-10 09:14:04');
-INSERT INTO `Permission` VALUES (573, 'ReleaseNamespace', 'test1+TEST1.test22', b'0', 'apollo', '2018-12-10 09:14:04', 'apollo', '2018-12-10 09:14:04');
-INSERT INTO `Permission` VALUES (574, 'ModifyNamespace', 'test1+TEST1.test22+DEV', b'0', 'apollo', '2018-12-10 09:14:04', 'apollo', '2018-12-10 09:14:04');
-INSERT INTO `Permission` VALUES (575, 'ReleaseNamespace', 'test1+TEST1.test22+DEV', b'0', 'apollo', '2018-12-10 09:14:04', 'apollo', '2018-12-10 09:14:04');
-INSERT INTO `Permission` VALUES (576, 'ModifyNamespace', 'test1+TEST1.test22+TEST', b'0', 'apollo', '2018-12-10 09:14:04', 'apollo', '2018-12-10 09:14:04');
-INSERT INTO `Permission` VALUES (577, 'ReleaseNamespace', 'test1+TEST1.test22+TEST', b'0', 'apollo', '2018-12-10 09:14:04', 'apollo', '2018-12-10 09:14:04');
-INSERT INTO `Permission` VALUES (578, 'ModifyNamespace', 'test1+TEST1.test22+PRE', b'0', 'apollo', '2018-12-10 09:14:04', 'apollo', '2018-12-10 09:14:04');
-INSERT INTO `Permission` VALUES (579, 'ReleaseNamespace', 'test1+TEST1.test22+PRE', b'0', 'apollo', '2018-12-10 09:14:04', 'apollo', '2018-12-10 09:14:04');
-INSERT INTO `Permission` VALUES (580, 'ModifyNamespace', 'test1+TEST1.test22+PROD', b'0', 'apollo', '2018-12-10 09:14:04', 'apollo', '2018-12-10 09:14:04');
-INSERT INTO `Permission` VALUES (581, 'ReleaseNamespace', 'test1+TEST1.test22+PROD', b'0', 'apollo', '2018-12-10 09:14:04', 'apollo', '2018-12-10 09:14:04');
+INSERT INTO `Permission` VALUES (1, 'CreateCluster', 'test1', b'0', 'apollo', '2018-12-10 17:50:48', 'apollo', '2018-12-10 17:50:48');
+INSERT INTO `Permission` VALUES (2, 'CreateNamespace', 'test1', b'0', 'apollo', '2018-12-10 17:50:48', 'apollo', '2018-12-10 17:50:48');
+INSERT INTO `Permission` VALUES (3, 'AssignRole', 'test1', b'0', 'apollo', '2018-12-10 17:50:48', 'apollo', '2018-12-10 17:50:48');
+INSERT INTO `Permission` VALUES (4, 'ModifyNamespace', 'test1+application', b'0', 'apollo', '2018-12-10 17:50:48', 'apollo', '2018-12-10 17:50:48');
+INSERT INTO `Permission` VALUES (5, 'ReleaseNamespace', 'test1+application', b'0', 'apollo', '2018-12-10 17:50:48', 'apollo', '2018-12-10 17:50:48');
+INSERT INTO `Permission` VALUES (6, 'ModifyNamespace', 'test1+application+DEV', b'0', 'apollo', '2018-12-10 17:50:48', 'apollo', '2018-12-10 17:50:48');
+INSERT INTO `Permission` VALUES (7, 'ReleaseNamespace', 'test1+application+DEV', b'0', 'apollo', '2018-12-10 17:50:48', 'apollo', '2018-12-10 17:50:48');
+INSERT INTO `Permission` VALUES (8, 'ModifyNamespace', 'test1+application+TEST', b'0', 'apollo', '2018-12-10 17:50:48', 'apollo', '2018-12-10 17:50:48');
+INSERT INTO `Permission` VALUES (9, 'ReleaseNamespace', 'test1+application+TEST', b'0', 'apollo', '2018-12-10 17:50:48', 'apollo', '2018-12-10 17:50:48');
+INSERT INTO `Permission` VALUES (10, 'ModifyNamespace', 'test1+application+PRE', b'0', 'apollo', '2018-12-10 17:50:48', 'apollo', '2018-12-10 17:50:48');
+INSERT INTO `Permission` VALUES (11, 'ReleaseNamespace', 'test1+application+PRE', b'0', 'apollo', '2018-12-10 17:50:48', 'apollo', '2018-12-10 17:50:48');
+INSERT INTO `Permission` VALUES (12, 'ModifyNamespace', 'test1+application+PROD', b'0', 'apollo', '2018-12-10 17:50:48', 'apollo', '2018-12-10 17:50:48');
+INSERT INTO `Permission` VALUES (13, 'ReleaseNamespace', 'test1+application+PROD', b'0', 'apollo', '2018-12-10 17:50:48', 'apollo', '2018-12-10 17:50:48');
 COMMIT;
 
 -- ----------------------------
@@ -498,14 +467,7 @@ CREATE TABLE `Release` (
   KEY `AppId_ClusterName_GroupName` (`AppId`(191),`ClusterName`(191),`NamespaceName`(191)),
   KEY `DataChange_LastTime` (`DataChange_LastTime`),
   KEY `IX_ReleaseKey` (`ReleaseKey`)
-) ENGINE=InnoDB AUTO_INCREMENT=103 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='发布';
-
--- ----------------------------
--- Records of Release
--- ----------------------------
-BEGIN;
-INSERT INTO `Release` VALUES (102, '20181210091323-bdad8e688ffc7c5c', '20181210091322-release', '', 'test1', 'default', 'application', '{\"11\":\"11\"}', b'0', b'0', 'apollo', '2018-12-10 09:13:24', 'apollo', '2018-12-10 09:13:24', 'DEV');
-COMMIT;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='发布';
 
 -- ----------------------------
 -- Table structure for ReleaseHistory
@@ -531,14 +493,7 @@ CREATE TABLE `ReleaseHistory` (
   KEY `IX_Namespace` (`AppId`,`ClusterName`,`NamespaceName`,`BranchName`),
   KEY `IX_ReleaseId` (`ReleaseId`),
   KEY `IX_DataChange_LastTime` (`DataChange_LastTime`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='发布历史';
-
--- ----------------------------
--- Records of ReleaseHistory
--- ----------------------------
-BEGIN;
-INSERT INTO `ReleaseHistory` VALUES (1, 'test1', 'default', 'application', 'default', 102, 0, 0, '{\"isEmergencyPublish\":false}', b'0', 'apollo', '2018-12-10 09:13:24', 'apollo', '2018-12-10 09:13:24', 'DEV');
-COMMIT;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='发布历史';
 
 -- ----------------------------
 -- Table structure for ReleaseMessage
@@ -551,14 +506,7 @@ CREATE TABLE `ReleaseMessage` (
   PRIMARY KEY (`Id`),
   KEY `DataChange_LastTime` (`DataChange_LastTime`),
   KEY `IX_Message` (`Message`(191))
-) ENGINE=InnoDB AUTO_INCREMENT=52 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='发布消息';
-
--- ----------------------------
--- Records of ReleaseMessage
--- ----------------------------
-BEGIN;
-INSERT INTO `ReleaseMessage` VALUES (51, 'test1+default+application', '2018-12-10 09:13:24');
-COMMIT;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='发布消息';
 
 -- ----------------------------
 -- Table structure for Role
@@ -575,33 +523,23 @@ CREATE TABLE `Role` (
   PRIMARY KEY (`Id`),
   KEY `IX_RoleName` (`RoleName`(191)),
   KEY `IX_DataChange_LastTime` (`DataChange_LastTime`)
-) ENGINE=InnoDB AUTO_INCREMENT=500 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='角色表';
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='角色表';
 
 -- ----------------------------
 -- Records of Role
 -- ----------------------------
 BEGIN;
-INSERT INTO `Role` VALUES (479, 'Master+test1', b'0', 'apollo', '2018-12-10 09:12:57', 'apollo', '2018-12-10 09:12:57');
-INSERT INTO `Role` VALUES (480, 'ModifyNamespace+test1+application', b'0', 'apollo', '2018-12-10 09:12:57', 'apollo', '2018-12-10 09:12:57');
-INSERT INTO `Role` VALUES (481, 'ReleaseNamespace+test1+application', b'0', 'apollo', '2018-12-10 09:12:57', 'apollo', '2018-12-10 09:12:57');
-INSERT INTO `Role` VALUES (482, 'ModifyNamespace+test1+application+DEV', b'0', 'apollo', '2018-12-10 09:12:57', 'apollo', '2018-12-10 09:12:57');
-INSERT INTO `Role` VALUES (483, 'ReleaseNamespace+test1+application+DEV', b'0', 'apollo', '2018-12-10 09:12:57', 'apollo', '2018-12-10 09:12:57');
-INSERT INTO `Role` VALUES (484, 'ModifyNamespace+test1+application+TEST', b'0', 'apollo', '2018-12-10 09:12:58', 'apollo', '2018-12-10 09:12:58');
-INSERT INTO `Role` VALUES (485, 'ReleaseNamespace+test1+application+TEST', b'0', 'apollo', '2018-12-10 09:12:58', 'apollo', '2018-12-10 09:12:58');
-INSERT INTO `Role` VALUES (486, 'ModifyNamespace+test1+application+PRE', b'0', 'apollo', '2018-12-10 09:12:58', 'apollo', '2018-12-10 09:12:58');
-INSERT INTO `Role` VALUES (487, 'ReleaseNamespace+test1+application+PRE', b'0', 'apollo', '2018-12-10 09:12:58', 'apollo', '2018-12-10 09:12:58');
-INSERT INTO `Role` VALUES (488, 'ModifyNamespace+test1+application+PROD', b'0', 'apollo', '2018-12-10 09:12:58', 'apollo', '2018-12-10 09:12:58');
-INSERT INTO `Role` VALUES (489, 'ReleaseNamespace+test1+application+PROD', b'0', 'apollo', '2018-12-10 09:12:58', 'apollo', '2018-12-10 09:12:58');
-INSERT INTO `Role` VALUES (490, 'ModifyNamespace+test1+TEST1.test22', b'0', 'apollo', '2018-12-10 09:14:04', 'apollo', '2018-12-10 09:14:04');
-INSERT INTO `Role` VALUES (491, 'ReleaseNamespace+test1+TEST1.test22', b'0', 'apollo', '2018-12-10 09:14:04', 'apollo', '2018-12-10 09:14:04');
-INSERT INTO `Role` VALUES (492, 'ModifyNamespace+test1+TEST1.test22+DEV', b'0', 'apollo', '2018-12-10 09:14:04', 'apollo', '2018-12-10 09:14:04');
-INSERT INTO `Role` VALUES (493, 'ReleaseNamespace+test1+TEST1.test22+DEV', b'0', 'apollo', '2018-12-10 09:14:04', 'apollo', '2018-12-10 09:14:04');
-INSERT INTO `Role` VALUES (494, 'ModifyNamespace+test1+TEST1.test22+TEST', b'0', 'apollo', '2018-12-10 09:14:04', 'apollo', '2018-12-10 09:14:04');
-INSERT INTO `Role` VALUES (495, 'ReleaseNamespace+test1+TEST1.test22+TEST', b'0', 'apollo', '2018-12-10 09:14:04', 'apollo', '2018-12-10 09:14:04');
-INSERT INTO `Role` VALUES (496, 'ModifyNamespace+test1+TEST1.test22+PRE', b'0', 'apollo', '2018-12-10 09:14:04', 'apollo', '2018-12-10 09:14:04');
-INSERT INTO `Role` VALUES (497, 'ReleaseNamespace+test1+TEST1.test22+PRE', b'0', 'apollo', '2018-12-10 09:14:04', 'apollo', '2018-12-10 09:14:04');
-INSERT INTO `Role` VALUES (498, 'ModifyNamespace+test1+TEST1.test22+PROD', b'0', 'apollo', '2018-12-10 09:14:04', 'apollo', '2018-12-10 09:14:04');
-INSERT INTO `Role` VALUES (499, 'ReleaseNamespace+test1+TEST1.test22+PROD', b'0', 'apollo', '2018-12-10 09:14:04', 'apollo', '2018-12-10 09:14:04');
+INSERT INTO `Role` VALUES (1, 'Master+test1', b'0', 'apollo', '2018-12-10 17:50:48', 'apollo', '2018-12-10 17:50:48');
+INSERT INTO `Role` VALUES (2, 'ModifyNamespace+test1+application', b'0', 'apollo', '2018-12-10 17:50:48', 'apollo', '2018-12-10 17:50:48');
+INSERT INTO `Role` VALUES (3, 'ReleaseNamespace+test1+application', b'0', 'apollo', '2018-12-10 17:50:48', 'apollo', '2018-12-10 17:50:48');
+INSERT INTO `Role` VALUES (4, 'ModifyNamespace+test1+application+DEV', b'0', 'apollo', '2018-12-10 17:50:48', 'apollo', '2018-12-10 17:50:48');
+INSERT INTO `Role` VALUES (5, 'ReleaseNamespace+test1+application+DEV', b'0', 'apollo', '2018-12-10 17:50:48', 'apollo', '2018-12-10 17:50:48');
+INSERT INTO `Role` VALUES (6, 'ModifyNamespace+test1+application+TEST', b'0', 'apollo', '2018-12-10 17:50:48', 'apollo', '2018-12-10 17:50:48');
+INSERT INTO `Role` VALUES (7, 'ReleaseNamespace+test1+application+TEST', b'0', 'apollo', '2018-12-10 17:50:48', 'apollo', '2018-12-10 17:50:48');
+INSERT INTO `Role` VALUES (8, 'ModifyNamespace+test1+application+PRE', b'0', 'apollo', '2018-12-10 17:50:48', 'apollo', '2018-12-10 17:50:48');
+INSERT INTO `Role` VALUES (9, 'ReleaseNamespace+test1+application+PRE', b'0', 'apollo', '2018-12-10 17:50:48', 'apollo', '2018-12-10 17:50:48');
+INSERT INTO `Role` VALUES (10, 'ModifyNamespace+test1+application+PROD', b'0', 'apollo', '2018-12-10 17:50:48', 'apollo', '2018-12-10 17:50:48');
+INSERT INTO `Role` VALUES (11, 'ReleaseNamespace+test1+application+PROD', b'0', 'apollo', '2018-12-10 17:50:48', 'apollo', '2018-12-10 17:50:48');
 COMMIT;
 
 -- ----------------------------
@@ -621,35 +559,25 @@ CREATE TABLE `RolePermission` (
   KEY `IX_DataChange_LastTime` (`DataChange_LastTime`),
   KEY `IX_RoleId` (`RoleId`),
   KEY `IX_PermissionId` (`PermissionId`)
-) ENGINE=InnoDB AUTO_INCREMENT=582 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='角色和权限的绑定表';
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='角色和权限的绑定表';
 
 -- ----------------------------
 -- Records of RolePermission
 -- ----------------------------
 BEGIN;
-INSERT INTO `RolePermission` VALUES (559, 479, 559, b'0', 'apollo', '2018-12-10 09:12:57', 'apollo', '2018-12-10 09:12:57');
-INSERT INTO `RolePermission` VALUES (560, 479, 560, b'0', 'apollo', '2018-12-10 09:12:57', 'apollo', '2018-12-10 09:12:57');
-INSERT INTO `RolePermission` VALUES (561, 479, 561, b'0', 'apollo', '2018-12-10 09:12:57', 'apollo', '2018-12-10 09:12:57');
-INSERT INTO `RolePermission` VALUES (562, 480, 562, b'0', 'apollo', '2018-12-10 09:12:57', 'apollo', '2018-12-10 09:12:57');
-INSERT INTO `RolePermission` VALUES (563, 481, 563, b'0', 'apollo', '2018-12-10 09:12:57', 'apollo', '2018-12-10 09:12:57');
-INSERT INTO `RolePermission` VALUES (564, 482, 564, b'0', 'apollo', '2018-12-10 09:12:57', 'apollo', '2018-12-10 09:12:57');
-INSERT INTO `RolePermission` VALUES (565, 483, 565, b'0', 'apollo', '2018-12-10 09:12:57', 'apollo', '2018-12-10 09:12:57');
-INSERT INTO `RolePermission` VALUES (566, 484, 566, b'0', 'apollo', '2018-12-10 09:12:58', 'apollo', '2018-12-10 09:12:58');
-INSERT INTO `RolePermission` VALUES (567, 485, 567, b'0', 'apollo', '2018-12-10 09:12:58', 'apollo', '2018-12-10 09:12:58');
-INSERT INTO `RolePermission` VALUES (568, 486, 568, b'0', 'apollo', '2018-12-10 09:12:58', 'apollo', '2018-12-10 09:12:58');
-INSERT INTO `RolePermission` VALUES (569, 487, 569, b'0', 'apollo', '2018-12-10 09:12:58', 'apollo', '2018-12-10 09:12:58');
-INSERT INTO `RolePermission` VALUES (570, 488, 570, b'0', 'apollo', '2018-12-10 09:12:58', 'apollo', '2018-12-10 09:12:58');
-INSERT INTO `RolePermission` VALUES (571, 489, 571, b'0', 'apollo', '2018-12-10 09:12:58', 'apollo', '2018-12-10 09:12:58');
-INSERT INTO `RolePermission` VALUES (572, 490, 572, b'0', 'apollo', '2018-12-10 09:14:04', 'apollo', '2018-12-10 09:14:04');
-INSERT INTO `RolePermission` VALUES (573, 491, 573, b'0', 'apollo', '2018-12-10 09:14:04', 'apollo', '2018-12-10 09:14:04');
-INSERT INTO `RolePermission` VALUES (574, 492, 574, b'0', 'apollo', '2018-12-10 09:14:04', 'apollo', '2018-12-10 09:14:04');
-INSERT INTO `RolePermission` VALUES (575, 493, 575, b'0', 'apollo', '2018-12-10 09:14:04', 'apollo', '2018-12-10 09:14:04');
-INSERT INTO `RolePermission` VALUES (576, 494, 576, b'0', 'apollo', '2018-12-10 09:14:04', 'apollo', '2018-12-10 09:14:04');
-INSERT INTO `RolePermission` VALUES (577, 495, 577, b'0', 'apollo', '2018-12-10 09:14:04', 'apollo', '2018-12-10 09:14:04');
-INSERT INTO `RolePermission` VALUES (578, 496, 578, b'0', 'apollo', '2018-12-10 09:14:04', 'apollo', '2018-12-10 09:14:04');
-INSERT INTO `RolePermission` VALUES (579, 497, 579, b'0', 'apollo', '2018-12-10 09:14:04', 'apollo', '2018-12-10 09:14:04');
-INSERT INTO `RolePermission` VALUES (580, 498, 580, b'0', 'apollo', '2018-12-10 09:14:04', 'apollo', '2018-12-10 09:14:04');
-INSERT INTO `RolePermission` VALUES (581, 499, 581, b'0', 'apollo', '2018-12-10 09:14:04', 'apollo', '2018-12-10 09:14:04');
+INSERT INTO `RolePermission` VALUES (1, 1, 1, b'0', 'apollo', '2018-12-10 17:50:48', 'apollo', '2018-12-10 17:50:48');
+INSERT INTO `RolePermission` VALUES (2, 1, 2, b'0', 'apollo', '2018-12-10 17:50:48', 'apollo', '2018-12-10 17:50:48');
+INSERT INTO `RolePermission` VALUES (3, 1, 3, b'0', 'apollo', '2018-12-10 17:50:48', 'apollo', '2018-12-10 17:50:48');
+INSERT INTO `RolePermission` VALUES (4, 2, 4, b'0', 'apollo', '2018-12-10 17:50:48', 'apollo', '2018-12-10 17:50:48');
+INSERT INTO `RolePermission` VALUES (5, 3, 5, b'0', 'apollo', '2018-12-10 17:50:48', 'apollo', '2018-12-10 17:50:48');
+INSERT INTO `RolePermission` VALUES (6, 4, 6, b'0', 'apollo', '2018-12-10 17:50:48', 'apollo', '2018-12-10 17:50:48');
+INSERT INTO `RolePermission` VALUES (7, 5, 7, b'0', 'apollo', '2018-12-10 17:50:48', 'apollo', '2018-12-10 17:50:48');
+INSERT INTO `RolePermission` VALUES (8, 6, 8, b'0', 'apollo', '2018-12-10 17:50:48', 'apollo', '2018-12-10 17:50:48');
+INSERT INTO `RolePermission` VALUES (9, 7, 9, b'0', 'apollo', '2018-12-10 17:50:48', 'apollo', '2018-12-10 17:50:48');
+INSERT INTO `RolePermission` VALUES (10, 8, 10, b'0', 'apollo', '2018-12-10 17:50:48', 'apollo', '2018-12-10 17:50:48');
+INSERT INTO `RolePermission` VALUES (11, 9, 11, b'0', 'apollo', '2018-12-10 17:50:48', 'apollo', '2018-12-10 17:50:48');
+INSERT INTO `RolePermission` VALUES (12, 10, 12, b'0', 'apollo', '2018-12-10 17:50:48', 'apollo', '2018-12-10 17:50:48');
+INSERT INTO `RolePermission` VALUES (13, 11, 13, b'0', 'apollo', '2018-12-10 17:50:48', 'apollo', '2018-12-10 17:50:48');
 COMMIT;
 
 -- ----------------------------
@@ -706,17 +634,15 @@ CREATE TABLE `UserRole` (
   KEY `IX_DataChange_LastTime` (`DataChange_LastTime`),
   KEY `IX_RoleId` (`RoleId`),
   KEY `IX_UserId_RoleId` (`UserId`,`RoleId`)
-) ENGINE=InnoDB AUTO_INCREMENT=158 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='用户和role的绑定表';
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='用户和role的绑定表';
 
 -- ----------------------------
 -- Records of UserRole
 -- ----------------------------
 BEGIN;
-INSERT INTO `UserRole` VALUES (153, 'apollo', 479, b'0', 'apollo', '2018-12-10 09:12:57', 'apollo', '2018-12-10 09:12:57');
-INSERT INTO `UserRole` VALUES (154, 'apollo', 480, b'0', 'apollo', '2018-12-10 09:12:58', 'apollo', '2018-12-10 09:12:58');
-INSERT INTO `UserRole` VALUES (155, 'apollo', 481, b'0', 'apollo', '2018-12-10 09:12:58', 'apollo', '2018-12-10 09:12:58');
-INSERT INTO `UserRole` VALUES (156, 'apollo', 490, b'0', 'apollo', '2018-12-10 09:14:04', 'apollo', '2018-12-10 09:14:04');
-INSERT INTO `UserRole` VALUES (157, 'apollo', 491, b'0', 'apollo', '2018-12-10 09:14:04', 'apollo', '2018-12-10 09:14:04');
+INSERT INTO `UserRole` VALUES (1, 'apollo', 1, b'0', 'apollo', '2018-12-10 17:50:48', 'apollo', '2018-12-10 17:50:48');
+INSERT INTO `UserRole` VALUES (2, 'apollo', 2, b'0', 'apollo', '2018-12-10 17:50:48', 'apollo', '2018-12-10 17:50:48');
+INSERT INTO `UserRole` VALUES (3, 'apollo', 3, b'0', 'apollo', '2018-12-10 17:50:48', 'apollo', '2018-12-10 17:50:48');
 COMMIT;
 
 -- ----------------------------

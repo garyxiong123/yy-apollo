@@ -4,6 +4,7 @@ import com.ctrip.framework.apollo.common.entity.AppNamespace;
 import com.ctrip.framework.apollo.common.exception.ServiceException;
 import com.ctrip.framework.apollo.core.ConfigConsts;
 import com.ctrip.framework.apollo.core.enums.ConfigFileFormat;
+import com.ctrip.framework.apollo.portal.component.PortalSettings;
 import com.ctrip.framework.apollo.portal.entity.AuditEntity;
 import com.ctrip.framework.apollo.portal.entity.ClusterEntity;
 import com.ctrip.framework.apollo.portal.entity.Namespace;
@@ -58,6 +59,9 @@ public class AppService {
   private UserService userService;
   @Autowired
   private AuditService auditService;
+
+  @Autowired
+  private PortalSettings portalSettings;
 
 
   @Transactional
@@ -175,17 +179,18 @@ public class AppService {
     clusterService.createDefaultCluster(appId, userInfoHolder.getUser().getUserId());
 
   }
-
   private void createDefaultNamespace(String appId) {
-
-    Namespace namespaceEntity = new Namespace();
-    namespaceEntity.setAppId(appId);
-    String userId = userInfoHolder.getUser().getUserId();
-    namespaceEntity.setClusterName(ConfigConsts.CLUSTER_NAME_DEFAULT);
-    namespaceEntity.setNamespaceName(ConfigConsts.NAMESPACE_APPLICATION);
-    namespaceEntity.setDataChangeCreatedBy(userId);
-    namespaceEntity.setDataChangeLastModifiedBy(userId);
-    namespaceService.save(namespaceEntity);
+    for(Env env : portalSettings.getActiveEnvs()) {
+      Namespace namespaceEntity = new Namespace();
+      namespaceEntity.setAppId(appId);
+      String userId = userInfoHolder.getUser().getUserId();
+      namespaceEntity.setClusterName(ConfigConsts.CLUSTER_NAME_DEFAULT);
+      namespaceEntity.setNamespaceName(ConfigConsts.NAMESPACE_APPLICATION);
+      namespaceEntity.setDataChangeCreatedBy(userId);
+      namespaceEntity.setDataChangeLastModifiedBy(userId);
+      namespaceEntity.setEnv(env.name());
+      namespaceService.save(namespaceEntity);
+    }
   }
 
   @Transactional

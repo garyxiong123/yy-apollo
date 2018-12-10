@@ -10,9 +10,15 @@ import java.util.List;
 
 public interface NamespaceRepository extends PagingAndSortingRepository<Namespace, Long> {
 
+  List<Namespace> findByAppIdAndClusterNameAndEnvOrderByIdAsc(String appId, String clusterName, String env);
+
   List<Namespace> findByAppIdAndClusterNameOrderByIdAsc(String appId, String clusterName);
 
-  Namespace findByAppIdAndClusterNameAndNamespaceName(String appId, String clusterName, String namespaceName);
+
+  List<Namespace> findByAppIdAndNamespaceNameAndEnvOrderByIdAsc(String appId, String clusterName, String env);
+
+
+  Namespace findByAppIdAndClusterNameAndNamespaceNameAndEnv(String appId, String clusterName, String namespaceName, String env);
 
   @Modifying
   @Query("update Namespace set isdeleted=1,DataChange_LastModifiedBy = ?3 where appId=?1 and clusterName=?2")

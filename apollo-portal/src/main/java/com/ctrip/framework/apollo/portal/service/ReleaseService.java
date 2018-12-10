@@ -68,7 +68,7 @@ public class ReleaseService {
         String releaseBy = StringUtils.isEmpty(model.getReleasedBy()) ?
                 userInfoHolder.getUser().getUserId() : model.getReleasedBy();
 
-        Namespace namespace = namespaceService.findOne(appId, clusterName, namespaceName);
+        Namespace namespace = namespaceService.findOne(appId, clusterName, namespaceName, model.getEnv().name());
         if (namespace == null) {
             throw new NotFoundException(String.format("Could not find namespace for %s %s %s", appId,
                     clusterName, namespaceName));
@@ -88,7 +88,7 @@ public class ReleaseService {
         String clusterName = model.getClusterName();
         String namespaceName = model.getNamespaceName();
 
-        Namespace namespace = namespaceService.findOne(appId, clusterName, namespaceName);
+        Namespace namespace = namespaceService.findOne(appId, clusterName, namespaceName, model.getEnv().name());
         if (namespace == null) {
             throw new NotFoundException(String.format("Could not find namespace for %s %s %s", appId,
                     clusterName, namespaceName));
@@ -127,7 +127,7 @@ public class ReleaseService {
                                     boolean isEmergencyPublish, boolean deleteBranch, ItemChangeSets changeSets) {
 
 
-        Namespace namespace = namespaceService.findOne(appId, clusterName, namespaceName);
+        Namespace namespace = namespaceService.findOne(appId, clusterName, namespaceName, env.name());
         if (namespace == null) {
             throw new NotFoundException(String.format("Could not find namespace for %s %s %s", appId,
                     clusterName, namespaceName));
@@ -604,7 +604,7 @@ public class ReleaseService {
 
     private void rollbackChildNamespace(String appId, String env, String clusterName, String namespaceName,
                                         List<Release> parentNamespaceTwoLatestActiveRelease, String operator) {
-        Namespace parentNamespace = namespaceService.findOne(appId, clusterName, namespaceName);
+        Namespace parentNamespace = namespaceService.findOne(appId, clusterName, namespaceName, env);
         Namespace childNamespace = namespaceService.findChildNamespace(appId, clusterName, namespaceName, env);
         if (parentNamespace == null || childNamespace == null) {
             return;

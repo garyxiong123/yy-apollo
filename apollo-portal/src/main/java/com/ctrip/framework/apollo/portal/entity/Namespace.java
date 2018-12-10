@@ -25,14 +25,26 @@ public class Namespace extends BaseEntity {
   @Column(name = "NamespaceName", nullable = false)
   private String namespaceName;
 
+  @Column(name = "Env", nullable = false)
+  private String env;
+
   public Namespace(){
 
   }
 
-  public Namespace(String appId, String clusterName, String namespaceName) {
+  public String getEnv() {
+    return env;
+  }
+
+  public void setEnv(String env) {
+    this.env = env;
+  }
+
+  public Namespace(String appId, String clusterName, String namespaceName, String env) {
     this.appId = appId;
     this.clusterName = clusterName;
     this.namespaceName = namespaceName;
+    this.env = env;
   }
 
   public String getAppId() {

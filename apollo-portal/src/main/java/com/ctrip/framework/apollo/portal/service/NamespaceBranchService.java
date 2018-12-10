@@ -280,7 +280,7 @@ public class NamespaceBranchService {
 
     public Namespace findBranchBaseInfo(String appId, Env env, String clusterName, String namespaceName) {
 
-        return namespaceService.findByAppIdAndClusterNameAndNamespaceName(appId, clusterName, namespaceName);
+        return namespaceService.findByAppIdAndClusterNameAndNamespaceName(appId, clusterName, namespaceName, env.name());
     }
 //
 //    public NamespaceBO findBranch(String appId, Env env, String clusterName, String namespaceName) {

@@ -107,7 +107,7 @@ public class NamespaceController {
                                                                @PathVariable String namespaceName,
                                                                @PathVariable String clusterName) {
 
-    return namespaceService.findPublicNamespaceForAssociatedNamespace(Env.valueOf(env), appId, clusterName, namespaceName);
+    return namespaceService.findPublicNamespaceForAssociatedNamespaceToBo(Env.valueOf(env), appId, clusterName, namespaceName);
   }
 
   @PreAuthorize(value = "@permissionValidator.hasCreateNamespacePermission(#appId)")

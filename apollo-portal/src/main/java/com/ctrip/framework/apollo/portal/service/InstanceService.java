@@ -87,13 +87,67 @@ public class InstanceService {
         return cal.getTime();
     }
 
+//    public List<Instance> findInstancesByIds(Set<Long> instanceIds) {
+//        Iterable<Instance> instances = instanceRepository.findAllById(instanceIds);
+//        if (instances == null) {
+//            return Collections.emptyList();
+//        }
+//        return Lists.newArrayList(instances);
+//    }
+
     public PageDTO<Instance> getByRelease(Env env, long releaseId, int page, int size) {
-        Release release = releaseService.findReleaseById(env, releaseId);
+//        Release release = releaseService.findReleaseById(env, releaseId);
+
+        PageRequest pageable = PageRequest.of(page, size);
+        Release release = releaseService.findOne(releaseId);
+        if (release == null) {
+            throw new NotFoundException(String.format("release not found for %s", releaseId));
+        }
+        Page<InstanceConfig> instanceConfigsPage = findActiveInstanceConfigsByReleaseKey
+                (release.getReleaseKey(), pageable);
+
+        List<InstanceDTO> instanceDTOs = Collections.emptyList();
+
+        if (instanceConfigsPage.hasContent()) {
+            Multimap<Long, InstanceConfig> instanceConfigMap = HashMultimap.create();
+            Set<String> otherReleaseKeys = Sets.newHashSet();
+
+            for (InstanceConfig instanceConfig : instanceConfigsPage.getContent()) {
+                instanceConfigMap.put(instanceConfig.getInstanceId(), instanceConfig);
+                otherReleaseKeys.add(instanceConfig.getReleaseKey());
+            }
+
+            Set<Long> instanceIds = instanceConfigMap.keySet();
+
+            List<Instance> instances = findInstancesByIds(instanceIds);
+
+            if (!CollectionUtils.isEmpty(instances)) {
+                instanceDTOs = BeanUtils.batchTransform(InstanceDTO.class, instances);
+            }
+
+            for (InstanceDTO instanceDTO : instanceDTOs) {
+                Collection<InstanceConfig> configs = instanceConfigMap.get(instanceDTO.getId());
+                List<InstanceConfigDTO> configDTOs = configs.stream().map(instanceConfig -> {
+                    InstanceConfigDTO instanceConfigDTO = new InstanceConfigDTO();
+                    //to save some space
+                    instanceConfigDTO.setRelease(null);
+                    instanceConfigDTO.setReleaseDeliveryTime(instanceConfig.getReleaseDeliveryTime());
+                    instanceConfigDTO.setDataChangeLastModifiedTime(instanceConfig
+                            .getDataChangeLastModifiedTime());
+                    return instanceConfigDTO;
+                }).collect(Collectors.toList());
+                instanceDTO.setConfigs(configDTOs);
+            }
+
+
+            return null;
+        }
         return null;
+
     }
 
     public Page<Instance> getByNamespace(Env env, String appId, String clusterName, String namespaceName,
-                                            String instanceAppId, int page, int size) {
+                                         String instanceAppId, int page, int size) {
         Pageable pageable = PageRequest.of(page, size);
         Page<Instance> instances;
         if (Strings.isNullOrEmpty(instanceAppId)) {

@@ -51,8 +51,6 @@ public class NamespaceService {
     private PortalSettings portalSettings;
     @Autowired
     private UserInfoHolder userInfoHolder;
-//    @Autowired
-//    private AdminServiceAPI.NamespaceAPI namespaceAPI;
     @Autowired
     private ItemService itemService;
     @Autowired
@@ -87,13 +85,14 @@ public class NamespaceService {
 
     @Autowired
     private ClusterService clusterService;
+
     public Namespace findOne(Long namespaceId) {
         return namespaceRepository.findById(namespaceId).get();
     }
 
-    public Namespace findOne(String appId, String clusterName, String namespaceName) {
-        return namespaceRepository.findByAppIdAndClusterNameAndNamespaceName(appId, clusterName,
-                namespaceName);
+    public Namespace findOne(String appId, String clusterName, String namespaceName, String env) {
+        return namespaceRepository.findByAppIdAndClusterNameAndNamespaceNameAndEnv(appId, clusterName,
+                namespaceName, env);
     }
 
     public AppNamespace findPublicNamespaceByName(String namespaceName) {
@@ -105,6 +104,7 @@ public class NamespaceService {
         if (StringUtils.isEmpty(namespace.getDataChangeCreatedBy())) {
             namespace.setDataChangeCreatedBy(userInfoHolder.getUser().getUserId());
         }
+        namespace.setEnv(env.name());
         namespace.setDataChangeLastModifiedBy(userInfoHolder.getUser().getUserId());
         Namespace createdNamespace = namespaceRepository.save(namespace);
 
@@ -143,7 +143,6 @@ public class NamespaceService {
 
         }
     }
-
 
 
     @Transactional
@@ -187,7 +186,6 @@ public class NamespaceService {
     }
 
 
-
     @Transactional
     public void deleteNamespace(String appId, Env env, String clusterName, String namespaceName) {
 
@@ -211,13 +209,13 @@ public class NamespaceService {
         }
 
         String operator = userInfoHolder.getUser().getUserId();
-        Namespace namespaceEntity =  Namespace.builder().appId(appId).namespaceName(namespaceName)
+        Namespace namespaceEntity = Namespace.builder().appId(appId).namespaceName(namespaceName)
                 .clusterName(clusterName).build();
         namespaceRepository.delete(namespaceEntity);
     }
 
     public Namespace loadNamespaceBaseInfo(String appId, Env env, String clusterName, String namespaceName) {
-        Namespace namespace =namespaceRepository.findByAppIdAndClusterNameAndNamespaceName(appId,clusterName,namespaceName);
+        Namespace namespace = namespaceRepository.findByAppIdAndClusterNameAndNamespaceNameAndEnv(appId, clusterName, namespaceName, env.name());
         if (namespace == null) {
             throw new BadRequestException("namespaces not exist");
         }
@@ -228,7 +226,7 @@ public class NamespaceService {
      * load cluster all namespace info with items
      */
     public List<NamespaceBO> findNamespaceBOs(String appId, Env env, String clusterName) {
-            List<Namespace> namespaceEntities = namespaceRepository.findByAppIdAndClusterNameOrderByIdAsc(appId, clusterName);
+        List<Namespace> namespaceEntities = namespaceRepository.findByAppIdAndClusterNameAndEnvOrderByIdAsc(appId, clusterName, env.name());
         if (namespaceEntities == null || namespaceEntities.size() == 0) {
             throw new BadRequestException("namespaces not exist");
         }
@@ -239,7 +237,7 @@ public class NamespaceService {
             NamespaceBO namespaceBO;
             try {
                 namespaceBO = transformNamespace2BO(env, namespaceEntity);
-                namespaceBOs.add(namespaceBO);
+                    namespaceBOs.add(namespaceBO);
             } catch (Exception e) {
                 logger.error("parse namespace error. app id:{}, env:{}, clusterName:{}, namespace:{}",
                         appId, env, clusterName, namespaceEntity.getNamespaceName(), e);
@@ -252,14 +250,14 @@ public class NamespaceService {
 
 
     public List<Namespace> getPublicAppNamespaceAllNamespaces(Env env, String publicNamespaceName, int page,
-                                                                 int size) {
+                                                              int size) {
         PageRequest page1 = PageRequest.of(page, size);
-        return namespaceRepository.findByNamespaceName(publicNamespaceName,page1);
+        return namespaceRepository.findByNamespaceName(publicNamespaceName, page1);
     }
 
     public NamespaceBO loadNamespaceBO(String appId, Env env, String clusterName, String namespaceName) {
-        Namespace namespace = namespaceRepository.findByAppIdAndClusterNameAndNamespaceName(appId, clusterName, namespaceName);
-        NamespaceBO namespaceBO  = transformNamespace2BO(env, namespace);
+        Namespace namespace = namespaceRepository.findByAppIdAndClusterNameAndNamespaceNameAndEnv(appId, clusterName, namespaceName, env.name());
+        NamespaceBO namespaceBO = transformNamespace2BO(env, namespace);
 
         return namespaceBO;
     }
@@ -273,10 +271,13 @@ public class NamespaceService {
 //        return namespaceAPI.countPublicAppNamespaceAssociatedNamespaces(env, publicNamespaceName) > 0;
     }
 
-    public NamespaceBO findPublicNamespaceForAssociatedNamespace(Env env, String appId,
-                                                                 String clusterName, String namespaceName) {
-        Namespace namespace = null;
-//                namespaceAPI.findPublicNamespaceForAssociatedNamespace(env, appId, clusterName, namespaceName);
+    public NamespaceBO findPublicNamespaceForAssociatedNamespaceToBo(Env env, String appId,
+                                                                     String clusterName, String namespaceName) {
+        Namespace namespace = findPublicNamespaceForAssociatedNamespace(clusterName, namespaceName, env.name());
+
+        if (namespace == null) {
+            throw new BadRequestException("namespaces not exist");
+        }
 
         return transformNamespace2BO(env, namespace);
     }
@@ -320,6 +321,7 @@ public class NamespaceService {
         //not Release config items
         List<Item> items = itemService.findItems(appId, env, clusterName, namespaceName);
         int modifiedItemCnt = 0;
+
         for (Item Item : items) {
 
             ItemBO itemBO = transformItem2BO(Item, releaseItems);
@@ -410,9 +412,7 @@ public class NamespaceService {
     }
 
 
-
-
-    public Namespace findPublicNamespaceForAssociatedNamespace(String clusterName, String namespaceName) {
+    public Namespace findPublicNamespaceForAssociatedNamespace(String clusterName, String namespaceName, String env) {
         AppNamespace appNamespace = appNamespaceService.findPublicNamespaceByName(namespaceName);
         if (appNamespace == null) {
             throw new BadRequestException("namespace not exist");
@@ -420,7 +420,7 @@ public class NamespaceService {
 
         String appId = appNamespace.getAppId();
 
-        Namespace namespace = findOne(appId, clusterName, namespaceName);
+        Namespace namespace = findOne(appId, clusterName, namespaceName, env);
 
         //default cluster's namespace
         if (Objects.equals(clusterName, ConfigConsts.CLUSTER_NAME_DEFAULT)) {
@@ -430,7 +430,7 @@ public class NamespaceService {
         //custom cluster's namespace not exist.
         //return default cluster's namespace
         if (namespace == null) {
-            return findOne(appId, ConfigConsts.CLUSTER_NAME_DEFAULT, namespaceName);
+            return findOne(appId, ConfigConsts.CLUSTER_NAME_DEFAULT, namespaceName, env);
         }
 
         //custom cluster's namespace exist and has published.
@@ -440,7 +440,7 @@ public class NamespaceService {
             return namespace;
         }
 
-        Namespace defaultNamespace = findOne(appId, ConfigConsts.CLUSTER_NAME_DEFAULT, namespaceName);
+        Namespace defaultNamespace = findOne(appId, ConfigConsts.CLUSTER_NAME_DEFAULT, namespaceName, env);
 
         //custom cluster's namespace exist but never published.
         //and default cluster's namespace not exist.
@@ -511,12 +511,16 @@ public class NamespaceService {
         return namespaces;
     }
 
+    public List<Namespace> findByAppIdAndNamespaceNameAndEnv(String appId, String namespaceName, String env) {
+        return namespaceRepository.findByAppIdAndNamespaceNameAndEnvOrderByIdAsc(appId, namespaceName, env);
+    }
+
     public List<Namespace> findByAppIdAndNamespaceName(String appId, String namespaceName) {
         return namespaceRepository.findByAppIdAndNamespaceNameOrderByIdAsc(appId, namespaceName);
     }
 
     public Namespace findChildNamespace(String appId, String parentClusterName, String namespaceName, String env) {
-        List<Namespace> namespaces = findByAppIdAndNamespaceName(appId, namespaceName);
+        List<Namespace> namespaces = findByAppIdAndNamespaceNameAndEnv(appId, namespaceName, env);
         if (CollectionUtils.isEmpty(namespaces) || namespaces.size() == 1) {
             return null;
         }
@@ -542,7 +546,7 @@ public class NamespaceService {
         String parentClusterName = parentNamespace.getClusterName();
         String namespaceName = parentNamespace.getNamespaceName();
 
-        return findChildNamespace(appId, parentClusterName, namespaceName, null);
+        return findChildNamespace(appId, parentClusterName, namespaceName, parentNamespace.getEnv());
 
     }
 
@@ -561,12 +565,12 @@ public class NamespaceService {
         }
 
         ClusterEntity parentClusterEntity = clusterService.findOne(clusterEntity.getParentClusterId());
-        return findOne(appId, parentClusterEntity.getName(), namespaceName);
+        return findOne(appId, parentClusterEntity.getName(), namespaceName, env);
 
     }
 
-    public boolean isChildNamespace(String appId, String clusterName, String namespaceName) {
-        return isChildNamespace(new Namespace(appId, clusterName, namespaceName));
+    public boolean isChildNamespace(String appId, String clusterName, String namespaceName, String env) {
+        return isChildNamespace(new Namespace(appId, clusterName, namespaceName, env));
     }
 
     public boolean isChildNamespace(Namespace namespace) {
@@ -574,18 +578,18 @@ public class NamespaceService {
         return findParentNamespace(namespace, null) != null;
     }
 
-    public boolean isNamespaceUnique(String appId, String cluster, String namespace) {
+    public boolean isNamespaceUnique(String appId, String cluster, String namespace, String env) {
         Objects.requireNonNull(appId, "AppId must not be null");
         Objects.requireNonNull(cluster, "ClusterEntity must not be null");
         Objects.requireNonNull(namespace, "Namespace must not be null");
         return ObjectUtils.isEmpty(
-                namespaceRepository.findByAppIdAndClusterNameAndNamespaceName(appId, cluster, namespace));
+                namespaceRepository.findByAppIdAndClusterNameAndNamespaceNameAndEnv(appId, cluster, namespace, env));
     }
 
 
     @Transactional
     public Namespace save(Namespace entity) {
-        if (!isNamespaceUnique(entity.getAppId(), entity.getClusterName(), entity.getNamespaceName())) {
+        if (!isNamespaceUnique(entity.getAppId(), entity.getClusterName(), entity.getNamespaceName(), entity.getEnv())) {
             throw new ServiceException("namespace not unique");
         }
         entity.setId(0);//protection
@@ -599,8 +603,8 @@ public class NamespaceService {
 
     @Transactional
     public Namespace update(Namespace namespace) {
-        Namespace managedNamespace = namespaceRepository.findByAppIdAndClusterNameAndNamespaceName(
-                namespace.getAppId(), namespace.getClusterName(), namespace.getNamespaceName());
+        Namespace managedNamespace = namespaceRepository.findByAppIdAndClusterNameAndNamespaceNameAndEnv(
+                namespace.getAppId(), namespace.getClusterName(), namespace.getNamespaceName(), namespace.getEnv());
         BeanUtils.copyEntityProperties(namespace, managedNamespace);
         managedNamespace = namespaceRepository.save(managedNamespace);
 
@@ -665,7 +669,7 @@ public class NamespaceService {
         return false;
     }
 
-    public Namespace findByAppIdAndClusterNameAndNamespaceName(String appId, String clusterName, String namespaceName) {
-        return namespaceRepository.findByAppIdAndClusterNameAndNamespaceName(appId, clusterName, namespaceName);
+    public Namespace findByAppIdAndClusterNameAndNamespaceName(String appId, String clusterName, String namespaceName, String env) {
+        return namespaceRepository.findByAppIdAndClusterNameAndNamespaceNameAndEnv(appId, clusterName, namespaceName, env);
     }
 }

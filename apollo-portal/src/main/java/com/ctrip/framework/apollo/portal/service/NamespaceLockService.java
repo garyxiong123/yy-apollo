@@ -22,14 +22,14 @@ public class NamespaceLockService {
   private NamespaceService namespaceService;
 
   public NamespaceLock getNamespaceLock(String appId, Env env, String clusterName, String namespaceName) {
-    Long namespaceId = namespaceService.findOne(appId, clusterName, namespaceName).getId();
+    Long namespaceId = namespaceService.findOne(appId, clusterName, namespaceName, env.name()).getId();
 
     return namespaceLockRepository.findByNamespaceIdAndEnv(namespaceId, env.name());
   }
 
   public LockInfo getNamespaceLockInfo(String appId, Env env, String clusterName, String namespaceName) {
     LockInfo lockInfo = new LockInfo();
-    Long namespaceId = namespaceService.findOne(appId, clusterName, namespaceName).getId();
+    Long namespaceId = namespaceService.findOne(appId, clusterName, namespaceName, env.name()).getId();
     NamespaceLock NamespaceLock =  namespaceLockRepository.findByNamespaceIdAndEnv(namespaceId, env.name());
     String lockOwner = NamespaceLock == null ? "" : NamespaceLock.getDataChangeCreatedBy();
     lockInfo.setLockOwner(lockOwner);

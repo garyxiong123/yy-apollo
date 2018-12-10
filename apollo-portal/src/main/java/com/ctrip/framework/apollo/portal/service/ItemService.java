@@ -101,7 +101,7 @@ public class ItemService {
     }
 
     public List<Item> findItemsWithoutOrdered(String appId, String clusterName, String namespaceName, String env) {
-        Namespace namespace = namespaceService.findOne(appId, clusterName, namespaceName);
+        Namespace namespace = namespaceService.findOne(appId, clusterName, namespaceName, env);
         if (namespace != null) {
             return findItemsWithoutOrdered(namespace.getId(), env);
         } else {
@@ -209,7 +209,7 @@ public class ItemService {
 
 
     public Item createItem(String appId, Env env, String clusterName, String namespaceName, Item item) {
-        Namespace namespace = namespaceService.findByAppIdAndClusterNameAndNamespaceName(appId, clusterName, namespaceName);
+        Namespace namespace = namespaceService.findByAppIdAndClusterNameAndNamespaceName(appId, clusterName, namespaceName, env.name());
         if (namespace == null) {
             throw new BadRequestException(
                     "namespace:" + namespaceName + " not exist in env:" + env + ", cluster:" + clusterName);
@@ -238,14 +238,14 @@ public class ItemService {
     }
 
     public List<Item> findItems(String appId, Env env, String clusterName, String namespaceName) {
-        Namespace namespace = namespaceService.findOne(appId, clusterName, namespaceName);
+        Namespace namespace = namespaceService.findOne(appId, clusterName, namespaceName, env.name());
 
         return itemRepository.findByNamespaceIdAndEnv(namespace.getId(), env.name());
     }
 
     public Item loadItem(Env env, String appId, String clusterName, String namespaceName, String key) {
 
-        Long namespaceId = namespaceService.findOne(appId, clusterName, namespaceName).getId();
+        Long namespaceId = namespaceService.findOne(appId, clusterName, namespaceName, env.name()).getId();
         return itemRepository.findByNamespaceIdAndKeyAndEnv(namespaceId, key, env.name());
     }
 
@@ -291,16 +291,14 @@ public class ItemService {
         String clusterName = namespaceIdentifier.getClusterName();
         String namespaceName = namespaceIdentifier.getNamespaceName();
         Env env = namespaceIdentifier.getEnv();
-        Long namespaceId = namespaceService.findOne(appId, clusterName, namespaceName).getId();
+        Long namespaceId = namespaceService.findOne(appId, clusterName, namespaceName, env.name()).getId();
         return namespaceId;
     }
 
     private ItemChangeSets parseChangeSets(NamespaceIdentifier namespace, List<Item> sourceItems) {
         ItemChangeSets changeSets = new ItemChangeSets();
-        Long namespaceId = namespaceService.findOne(namespace.getAppId(), namespace.getClusterName(), namespace.getNamespaceName()).getId();
+        Long namespaceId = namespaceService.findOne(namespace.getAppId(), namespace.getClusterName(), namespace.getNamespaceName(), namespace.getEnv().name()).getId();
         List<Item> targetItems = itemRepository.findByNamespaceIdAndEnv(namespaceId, namespace.getEnv().name());
-
-//        long namespaceId = getNamespaceId(namespace);
 
         if (CollectionUtils.isEmpty(targetItems)) {//all source items is added
             int lineNum = 1;

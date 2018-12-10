@@ -28,6 +28,8 @@ YyApollo（有鱼阿波罗）是根据携程Apollo进行改造的，定制一般
   1：增强权限控制
   2：应用分类，目前应用没有类型区分，为每个应用做对应的资源下拉
   
+  
+  
 服务端基于Spring Boot和Spring Cloud开发，打包后可以直接运行，不需要额外安装Tomcat等应用容器。
 
 Java客户端不依赖任何框架，能够运行于所有Java运行时环境，同时对Spring/Spring Boot环境也有较好的支持。

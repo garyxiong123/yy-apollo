@@ -123,7 +123,7 @@ Java客户端不依赖任何框架，能够运行于所有Java运行时环境，
 # Support
 <table>
   <thead>
-    <th>YyApollo配置中心技术支持②群<br />群号：502238410</th>
+    <th>YyApollo配置中心技术支持<br />QQ号：502238410, 或者邮件联系 502238410qq.com@</th>
   </thead>
   <tbody>
   </tbody>

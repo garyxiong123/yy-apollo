@@ -44,6 +44,13 @@ import com.google.gson.Gson;
 
 /**
  * @author Jason Song(song_s@ctrip.com)  优化整个查询的链路
+ *
+ *  开辟一片内存， 存储该namespace 对应的信息，
+ *  1：client内部数据从这片内存里面获取
+ *  2： 内存数据更新，通过定时任务去远程服务拉取版本，进行更新
+ *  3：只管理该namespace的数据，  一个namespace一个线程？
+ *
+ *
  */
 public class RemoteConfigRepository extends AbstractConfigRepository {
     private static final Logger logger = LoggerFactory.getLogger(RemoteConfigRepository.class);
@@ -154,6 +161,8 @@ public class RemoteConfigRepository extends AbstractConfigRepository {
         return result;
     }
 
+
+    //TODO fix it to feign
     private ApolloConfig loadApolloConfig() {
         if (!m_loadConfigRateLimiter.tryAcquire(5, TimeUnit.SECONDS)) {
             //wait at most 5 seconds

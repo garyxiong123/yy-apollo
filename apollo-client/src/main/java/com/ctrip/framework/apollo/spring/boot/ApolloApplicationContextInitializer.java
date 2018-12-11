@@ -94,6 +94,8 @@ public class ApolloApplicationContextInitializer implements
     logger.debug("Apollo bootstrap namespaces: {}", namespaces);
     List<String> namespaceList = NAMESPACE_SPLITTER.splitToList(namespaces);
 
+    //获取到所有这个app的优先启动的namespace
+
     CompositePropertySource composite = new CompositePropertySource(PropertySourcesConstants.APOLLO_BOOTSTRAP_PROPERTY_SOURCE_NAME);
     for (String namespace : namespaceList) {
       Config config = ConfigService.getConfig(namespace);

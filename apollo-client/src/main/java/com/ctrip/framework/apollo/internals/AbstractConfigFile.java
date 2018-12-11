@@ -119,16 +119,12 @@ public abstract class AbstractConfigFile implements ConfigFile, RepositoryChange
         @Override
         public void run() {
           String listenerName = listener.getClass().getName();
-          Transaction transaction = Tracer.newTransaction("Apollo.ConfigFileChangeListener", listenerName);
           try {
             listener.onChange(changeEvent);
-            transaction.setStatus(Transaction.SUCCESS);
           } catch (Throwable ex) {
-            transaction.setStatus(ex);
             Tracer.logError(ex);
             logger.error("Failed to invoke config file change listener {}", listenerName, ex);
           } finally {
-            transaction.complete();
           }
         }
       });

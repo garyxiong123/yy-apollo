@@ -8,6 +8,11 @@ import com.google.common.base.Strings;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+
+/*
+*  获取metaServer的地址，新版是获取 server的地址
+*/
+
 public class DefaultMetaServerProvider implements MetaServerProvider {
 
   public static final int ORDER = 0;

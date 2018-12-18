@@ -34,6 +34,7 @@ YyApollo（有鱼阿波罗）是根据携程Apollo进行改造的，定制一般
   * 页面UI，前端框架升级， 计划采用react进行对Anglar1的重构
   
 * **2.0版本改进**
+  *前端框架切换成vue版本
 
 # Screenshots
 ![数据库改造点](https://raw.githubusercontent.com/ctripcorp/apollo/master/doc/images/framework/db-frame.png)

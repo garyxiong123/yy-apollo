@@ -32,7 +32,7 @@ public class ServerConfigController {
 
   @PreAuthorize(value = "@permissionValidator.isSuperAdmin()")
   @RequestMapping(value = "/server/config", method = RequestMethod.POST)
-  public ServerConfig createOrUpdate(@RequestBody ServerConfig serverConfig) {
+  public ServerConfig createOrUpdate(ServerConfig serverConfig) {
 
     checkModel(Objects.nonNull(serverConfig));
     RequestPrecondition.checkArgumentsNotEmpty(serverConfig.getKey(), serverConfig.getValue());

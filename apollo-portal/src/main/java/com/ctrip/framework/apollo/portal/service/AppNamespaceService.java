@@ -139,16 +139,15 @@ public class AppNamespaceService {
         if (!isAppNamespaceNameUnique(appId, ConfigConsts.NAMESPACE_APPLICATION)) {
             throw new BadRequestException(String.format("App already has application namespace. AppId = %s", appId));
         }
-//        for (Env env : portalSettings.getActiveEnvs()) {
-            AppNamespace appNs = new AppNamespace();
-            appNs.setAppId(appId);
-            appNs.setName(ConfigConsts.NAMESPACE_APPLICATION);
-            appNs.setComment("default app namespace");
-            appNs.setFormat(ConfigFileFormat.Properties.getValue());
-            String userId = userInfoHolder.getUser().getUserId();
-            appNs.setDataChangeCreatedBy(userId);
-            appNs.setDataChangeLastModifiedBy(userId);
-            appNamespaceRepository.save(appNs);
+        AppNamespace appNs = new AppNamespace();
+        appNs.setAppId(appId);
+        appNs.setName(ConfigConsts.NAMESPACE_APPLICATION);
+        appNs.setComment("default app namespace");
+        appNs.setFormat(ConfigFileFormat.Properties.getValue());
+        String userId = userInfoHolder.getUser().getUserId();
+        appNs.setDataChangeCreatedBy(userId);
+        appNs.setDataChangeLastModifiedBy(userId);
+        appNamespaceRepository.save(appNs);
 //        }
     }
 
@@ -211,7 +210,7 @@ public class AppNamespaceService {
         List<ClusterEntity> clusterEntities = clusterService.findClusters(appId);
         //之前是批量通知， 改造后只需要 存一条到namespace中
 
-    for(ClusterEntity cluster : clusterEntities) {
+        for (ClusterEntity cluster : clusterEntities) {
             Namespace namespaceEntity = new Namespace();
             BeanUtils.copyProperties(appNamespace, namespaceEntity);
             namespaceEntity.setClusterName(cluster.getName());

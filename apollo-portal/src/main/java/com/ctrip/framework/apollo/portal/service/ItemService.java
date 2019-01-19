@@ -166,6 +166,83 @@ public class ItemService {
 
     }
 
+
+    @Transactional
+    public ItemChangeSets updateSet(Namespace namespace, ItemChangeSets changeSets) {
+        return updateSet(namespace.getAppId(), namespace.getClusterName(), namespace.getNamespaceName(), changeSets);
+    }
+
+    @Transactional
+    public ItemChangeSets updateSet(String appId, String clusterName,
+                                    String namespaceName, ItemChangeSets changeSet) {
+        String operator = changeSet.getDataChangeLastModifiedBy();
+        ConfigChangeContentBuilder configChangeContentBuilder = new ConfigChangeContentBuilder();
+
+        if (!CollectionUtils.isEmpty(changeSet.getCreateItems())) {
+            for (Item item : changeSet.getCreateItems()) {
+                Item entity = BeanUtils.transfrom(Item.class, item);
+                entity.setDataChangeCreatedBy(operator);
+                entity.setDataChangeLastModifiedBy(operator);
+                Item createdItem = save(entity);
+                configChangeContentBuilder.createItem(createdItem);
+            }
+            auditService.audit("ItemSet", null, AuditEntity.OP.INSERT, operator);
+        }
+
+        if (!CollectionUtils.isEmpty(changeSet.getUpdateItems())) {
+            for (Item item : changeSet.getUpdateItems()) {
+                Item entity = BeanUtils.transfrom(Item.class, item);
+
+                Item managedItem = findOne(entity.getId());
+                if (managedItem == null) {
+                    throw new NotFoundException(String.format("item not found.(key=%s)", entity.getKey()));
+                }
+                Item beforeUpdateItem = BeanUtils.transfrom(Item.class, managedItem);
+
+                //protect. only value,comment,lastModifiedBy,lineNum can be modified
+                managedItem.setValue(entity.getValue());
+                managedItem.setComment(entity.getComment());
+                managedItem.setLineNum(entity.getLineNum());
+                managedItem.setDataChangeLastModifiedBy(operator);
+
+                Item updatedItem = update(managedItem);
+                configChangeContentBuilder.updateItem(beforeUpdateItem, updatedItem);
+
+            }
+            auditService.audit("ItemSet", null, AuditEntity.OP.UPDATE, operator);
+        }
+
+        if (!CollectionUtils.isEmpty(changeSet.getDeleteItems())) {
+            for (Item item : changeSet.getDeleteItems()) {
+                Item deletedItem = delete(item.getId(), operator);
+                configChangeContentBuilder.deleteItem(deletedItem);
+            }
+            auditService.audit("ItemSet", null, AuditEntity.OP.DELETE, operator);
+        }
+
+        if (configChangeContentBuilder.hasContent()) {
+            createCommit(appId, clusterName, namespaceName, configChangeContentBuilder.build(),
+                    changeSet.getDataChangeLastModifiedBy());
+        }
+
+        return changeSet;
+
+    }
+
+    private void createCommit(String appId, String clusterName, String namespaceName, String configChangeContent,
+                              String operator) {
+
+        Commit commit = new Commit();
+        commit.setAppId(appId);
+        commit.setClusterName(clusterName);
+        commit.setNamespaceName(namespaceName);
+        commit.setChangeSets(configChangeContent);
+        commit.setDataChangeCreatedBy(operator);
+        commit.setDataChangeLastModifiedBy(operator);
+        commitService.save(commit);
+    }
+
+
     public void updateItems(String appId, Env env, String clusterName, String namespaceName, ItemChangeSets changeSets) {
         String operator = changeSets.getDataChangeLastModifiedBy();
         ConfigChangeContentBuilder configChangeContentBuilder = new ConfigChangeContentBuilder();
@@ -205,6 +282,35 @@ public class ItemService {
             }
             auditService.audit("ItemSet", null, AuditEntity.OP.UPDATE, operator);
         }
+        //删除deleteItem
+        if (!CollectionUtils.isEmpty(changeSets.getDeleteItems())) {
+            itemRepository.deleteAll(changeSets.getDeleteItems());
+            auditService.audit("ItemSet", null, AuditEntity.OP.DELETE, operator);
+
+        }
+        ;
+
+
+//                for (Item item : changeSets.getDeleteItems()) {
+//                    Item entity = BeanUtils.transfrom(Item.class, item);
+//
+//                    Item managedItem = findOne(entity.getId());
+//                    if (managedItem == null) {
+//                        throw new NotFoundException(String.format("item not found.(key=%s)", entity.getKey()));
+//                    }
+//                    Item beforeUpdateItem = BeanUtils.transfrom(Item.class, managedItem);
+//
+//                    //protect. only value,comment,lastModifiedBy,lineNum can be modified
+//                    managedItem.setValue(entity.getValue());
+//                    managedItem.setComment(entity.getComment());
+//                    managedItem.setLineNum(entity.getLineNum());
+//                    managedItem.setDataChangeLastModifiedBy(operator);
+//                    managedItem.setEnv(env.name());
+//
+//                    Item updatedItem = update(managedItem);
+//                    configChangeContentBuilder.updateItem(beforeUpdateItem, updatedItem);
+
+
     }
 
 
@@ -234,6 +340,7 @@ public class ItemService {
     }
 
     public void deleteItem(Env env, long itemId, String userId) {
+        itemRepository.deleteById(itemId);
 //        itemAPI.deleteItem(env, itemId, userId);
     }
 

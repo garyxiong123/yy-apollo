@@ -224,8 +224,8 @@ public class ReleaseService {
         Release baseRelease = null;
         Release toCompareRelease = null;
         if (baseReleaseId != 0) {
-            Release release = findOne(baseReleaseId);
-            if (release == null) {
+             baseRelease = findOne(baseReleaseId);
+            if (baseRelease == null) {
                 throw new NotFoundException(String.format("release not found for %s", baseReleaseId));
             }
         }

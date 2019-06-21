@@ -1,7 +1,7 @@
 package com.ctrip.framework.apollo.model;
 
 
-import com.ctrip.framework.apollo.portal.entity.Namespace;
+import com.ctrip.framework.apollo.model.entity.Namespace;
 
 public class NamespaceCreationModel {
 

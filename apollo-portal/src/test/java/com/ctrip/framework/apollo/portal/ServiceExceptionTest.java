@@ -4,9 +4,9 @@ package com.ctrip.framework.apollo.portal;
 import com.google.gson.Gson;
 
 import com.ctrip.framework.apollo.common.exception.ServiceException;
-import com.ctrip.framework.apollo.portal.controller.AppController;
+import com.ctrip.framework.apollo.controller.AppController;
 import com.ctrip.framework.apollo.model.AppModel;
-import com.ctrip.framework.apollo.portal.service.AppService;
+import com.ctrip.framework.apollo.service.AppService;
 
 import org.junit.Assert;
 import org.junit.Test;

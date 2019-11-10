@@ -1,6 +1,7 @@
 package com.ctrip.framework.apollo.service;
 
 
+import com.alibaba.fastjson.JSON;
 import com.ctrip.framework.apollo.model.bo.ItemChangeSets;
 import com.ctrip.framework.apollo.common.exception.BadRequestException;
 import com.ctrip.framework.apollo.common.exception.NotFoundException;
@@ -155,13 +156,10 @@ public class ItemService {
 
         changeSets.setDataChangeLastModifiedBy(userInfoHolder.getUser().getUserId());
         updateItems(appId, env, clusterName, namespaceName, changeSets);
-
-        Commit commit = Commit.builder().appId(appId).changeSets(gson.toJson(changeSets)).clusterName(clusterName)
+        Commit commit = Commit.builder().appId(appId).changeSets(JSON.toJSONString(changeSets)).clusterName(clusterName)
                 .namespaceName(namespaceName).env(env.name()).build();
         commit.setDataChangeCreatedBy(userInfoHolder.getUser().getUserId());
         commit.setDataChangeLastModifiedBy(userInfoHolder.getUser().getUserId());
-//        commit.setDataChangeCreatedTime();
-//        commit.setDataChangeLastModifiedTime();
         commitService.save(commit);
 
     }

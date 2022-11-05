@@ -1,6 +1,7 @@
 package com.ctrip.framework.apollo.portal;
 
 
+import com.ctrip.framework.apollo.PortalApplication;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;

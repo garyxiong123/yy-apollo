@@ -8,13 +8,13 @@
 //import com.ctrip.framework.apollo.openapi.repository.ConsumerRoleRepository;
 //import com.ctrip.framework.apollo.openapi.repository.ConsumerTokenRepository;
 //import com.ctrip.framework.apollo.portal.AbstractUnitTest;
-//import com.ctrip.framework.apollo.portal.component.config.PortalConfig;
-//import com.ctrip.framework.apollo.bo.UserInfo;
-//import com.ctrip.framework.apollo.portal.entity.Role;
-//import com.ctrip.framework.apollo.portal.service.RolePermissionService;
-//import com.ctrip.framework.apollo.portal.spi.UserInfoHolder;
-//import com.ctrip.framework.apollo.portal.spi.UserService;
-//import com.ctrip.framework.apollo.portal.util.RoleUtils;
+//import com.ctrip.framework.apollo.config.PortalConfig;
+//import com.ctrip.framework.apollo.model.bo.UserInfo;
+//import com.ctrip.framework.apollo.model.entity.Role;
+//import com.ctrip.framework.apollo.service.RolePermissionService;
+//import com.ctrip.framework.apollo.config.spi.UserInfoHolder;
+//import com.ctrip.framework.apollo.config.spi.UserService;
+//import com.ctrip.framework.apollo.util.RoleUtils;
 //
 //import java.util.Optional;
 //import org.junit.Before;

@@ -3,8 +3,8 @@
 //import com.ctrip.framework.apollo.common.exception.ServiceException;
 //import com.ctrip.framework.apollo.core.dto.ServiceDTO;
 //import com.ctrip.framework.apollo.core.enums.Env;
-//import com.ctrip.framework.apollo.portal.component.AdminServiceAddressLocator;
-//import com.ctrip.framework.apollo.portal.component.RetryableRestTemplate;
+//import com.ctrip.framework.apollo.component.AdminServiceAddressLocator;
+//import com.ctrip.framework.apollo.component.RetryableRestTemplate;
 //
 //import org.apache.http.HttpHost;
 //import org.apache.http.conn.ConnectTimeoutException;

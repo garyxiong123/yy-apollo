@@ -846,6 +846,7 @@ function directive($window, toastr, AppUtil, EventManager, PermissionService, Na
                 theme: 'eclipse',
                 mode: scope.namespace.format === 'yml' ? 'yaml' : scope.namespace.format,
                 onLoad: function (_editor) {
+                    debugger
                     _editor.$blockScrolling = Infinity;
                     _editor.setOptions({
                                            fontSize: 13,

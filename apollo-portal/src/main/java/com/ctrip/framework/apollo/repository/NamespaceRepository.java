@@ -1,0 +1,36 @@
+package com.ctrip.framework.apollo.repository;
+
+import com.ctrip.framework.apollo.model.entity.Namespace;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.repository.Modifying;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.PagingAndSortingRepository;
+
+import java.util.List;
+
+public interface NamespaceRepository extends PagingAndSortingRepository<Namespace, Long> {
+
+  List<Namespace> findByAppIdAndClusterNameAndEnvOrderByIdAsc(String appId, String clusterName, String env);
+
+  List<Namespace> findByAppIdAndClusterNameOrderByIdAsc(String appId, String clusterName);
+
+
+  List<Namespace> findByAppIdAndNamespaceNameAndEnvOrderByIdAsc(String appId, String clusterName, String env);
+
+
+  Namespace findByAppIdAndClusterNameAndNamespaceNameAndEnv(String appId, String clusterName, String namespaceName, String env);
+
+  @Modifying
+  @Query("update Namespace set isdeleted=1,DataChange_LastModifiedBy = ?3 where appId=?1 and clusterName=?2")
+  int batchDelete(String appId, String clusterName, String operator);
+
+  List<Namespace> findByAppIdAndNamespaceNameOrderByIdAsc(String appId, String namespaceName);
+
+
+
+  List<Namespace> findByNamespaceName(String namespaceName, Pageable page);
+
+  int countByNamespaceNameAndAppIdNot(String namespaceName, String appId);
+
+
+}

@@ -1,7 +1,7 @@
 package com.ctrip.framework.apollo.model;
 
-import com.ctrip.framework.apollo.portal.entity.Item;
-import com.ctrip.framework.apollo.vo.NamespaceIdentifier;
+import com.ctrip.framework.apollo.model.entity.Item;
+import com.ctrip.framework.apollo.model.vo.NamespaceIdentifier;
 
 import org.springframework.util.CollectionUtils;
 
